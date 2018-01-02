@@ -1,2 +1,19 @@
-# projeto-final-2015
-Projeto final de 2015 do curso técnico em informática
+# August
+Pojeto Final do curso técnico em informática, FAETEC República, 2015.<br/>
+O tema é: venda e entrega de quentinhas
+
+# Folder Structure
+* August - Actual project folder (Source Code)
+	* /dist - Runnable .jar file
+* fonts - Segoe UI font pack
+* docs - Some important files
+	* /DER - Diagrama de Entidade Relacionamento
+	* /Minimundo - Minimundo e Lista de Atividades
+	* SQL - **database**
+
+## WARNING
+Importe o schema (*docs/SQL.sql*) antes de executar a aplicação
+
+O executável da aplicação é *August/dist/August.jar*
+
+Descrição e escopo do projeto se encontram em *docs/Minimundo*
