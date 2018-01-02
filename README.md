@@ -7,8 +7,6 @@ O tema é venda e entrega de quentinhas
 	* Actual project folder (Source Code)
 	* /dist
 		* Runnable .jar file
-* fonts
-	* Segoe UI font pack
 * docs 
 	* Some important files
 	* /DER
@@ -17,6 +15,8 @@ O tema é venda e entrega de quentinhas
 		* Minimundo e Lista de Atividades
 	* SQL
 		* **database**
+* fonts
+	* Segoe UI font pack
 
 ## Warnings
 Importe o schema (*docs/SQL.sql*) antes de executar a aplicação

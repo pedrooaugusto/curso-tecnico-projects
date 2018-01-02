@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f8b90a71-7e51-496c-8220-f69e2308e46f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#191970">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFBFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#191970">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFBFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#6B91D5">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#CFD7E6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#9FAFDF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFCFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#333333"/>
+			<bottomPen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<subDataset name="DataSetFolhaPagamento" uuid="c824537a-99c8-46bb-9206-ffc74cf922d1">
+		<queryString language="SQL">
+			<![CDATA[select * from entregador;]]>
+		</queryString>
+		<field name="ID_ent" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Nome_ent" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Veiculo_ent" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="CPF_ent" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Salario_ent" class="java.lang.Float">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="DataNasc_ent" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="FotoURL_ent" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<group name="Nome_ent">
+			<groupExpression><![CDATA[$F{Nome_ent}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[select * from entregador;]]>
+	</queryString>
+	<field name="ID_ent" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nome_ent" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Veiculo_ent" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CPF_ent" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Salario_ent" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DataNasc_ent" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FotoURL_ent" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="94" uuid="af464653-8180-4027-8ca3-bd4b4fa32f18"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="27" uuid="95e4da88-29c4-4ecf-93fd-150dd5a84d73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI Semibold" size="16"/>
+				</textElement>
+				<text><![CDATA[August - The Divine Food]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="27" width="555" height="21" uuid="2be42f41-d141-4d2e-8ad8-bf1934fc6145"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[P. Sherman, 42 Wallaby Way, Sydney]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="48" width="555" height="21" uuid="18c351f1-c68b-47e1-b37f-f57dac298086"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[CNPJ: 22.122.312/0021-50]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="69" width="555" height="21" uuid="8f2d844e-720a-4470-ba5e-8a0af516ba61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Fone: (21) 4242-7373]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="164" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="35" uuid="a88bfef2-2215-4ca0-af71-4656adb61212"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="20" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Folha de Pagamento]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 6" style="table 4_TD" mode="Transparent" x="0" y="58" width="555" height="106" forecolor="#FFFFFF" uuid="affcac4f-ab49-4c95-8d02-5be8632c3c0f"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DataSetFolhaPagamento" uuid="be3a1b4b-bba7-40fe-a7a3-7a12f8a08e8d">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="158" uuid="7248dc99-6314-41df-9a52-4ff52a781832">
+						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="158" height="30" uuid="50167ab8-0b99-4e79-9839-57ace102e09b"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineStyle="Dotted"/>
+									<topPen lineStyle="Dotted"/>
+									<leftPen lineStyle="Dotted"/>
+									<bottomPen lineStyle="Dotted"/>
+									<rightPen lineStyle="Dotted"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Segoe UI Light" size="16"/>
+								</textElement>
+								<text><![CDATA[Nome]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="36" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="158" height="36" uuid="6490f98f-dc85-4b5f-822f-10ca05c5180d"/>
+								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Segoe UI" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Nome_ent}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="149" uuid="dcf3b580-0e4b-4490-8c0f-d0b06abe745b">
+						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="149" height="30" uuid="a783b503-57d1-489c-af03-0e9d2f970142"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineStyle="Dotted"/>
+									<topPen lineStyle="Dotted"/>
+									<leftPen lineStyle="Dotted"/>
+									<bottomPen lineStyle="Dotted"/>
+									<rightPen lineStyle="Dotted"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Segoe UI Light" size="16"/>
+								</textElement>
+								<text><![CDATA[CPF]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="36" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="149" height="36" uuid="1a949f95-9486-49df-8492-487ef59d8715"/>
+								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Segoe UI" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{CPF_ent}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="126" uuid="c6a35cb1-1c0d-4023-bac8-08de3b9c95f1">
+						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="126" height="30" uuid="45cec7ff-947b-4677-891f-9ca61485d8af"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineStyle="Dotted"/>
+									<topPen lineStyle="Dotted"/>
+									<leftPen lineStyle="Dotted"/>
+									<bottomPen lineStyle="Dotted"/>
+									<rightPen lineStyle="Dotted"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Segoe UI Light" size="16"/>
+								</textElement>
+								<text><![CDATA[Data Nascimento]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="36" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="126" height="36" uuid="8d232123-036d-4384-a110-9310dfb52b07"/>
+								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Segoe UI" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DataNasc_ent}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="eb8cbe36-c657-4de1-83d9-ddd77c44e7cd">
+						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="30" uuid="8aadac8c-3d35-416d-b71f-b61373ba69d8"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineStyle="Dotted"/>
+									<topPen lineStyle="Dotted"/>
+									<leftPen lineStyle="Dotted"/>
+									<bottomPen lineStyle="Dotted"/>
+									<rightPen lineStyle="Dotted"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Segoe UI Light" size="16"/>
+								</textElement>
+								<text><![CDATA[Salário]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="36" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement x="0" y="0" width="120" height="36" uuid="b31dcc45-c409-44c5-83d3-bef53410aa3c"/>
+								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Segoe UI" size="14"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Salario_ent}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="226" height="30" uuid="16bb0977-ad6d-429d-9032-b4f36a59a5e0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="15"/>
+				</textElement>
+				<text><![CDATA[Folha de pagamento, gerado em]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="226" y="0" width="329" height="30" uuid="04815126-03c8-40cc-bc0a-4d1a9708e6ed"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
