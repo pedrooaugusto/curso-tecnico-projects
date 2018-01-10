@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Cadastro das Turmas</title>
+</h:head>
+<h:body>
+<style type="text/css">
+body {
+	background-image: url(3.jpg);
+	background-repeat:no-repeat;
+}
+</style>
+	<h1>Cadastro das Turmas</h1>
+	<h:form>
+		<h:messages />
+		<h:dataTable value="#{VendaBean.lista}" var="venda" rules="rows"
+			cellpadding="5" rendered="true">
+			<f:facet name="header"> Listagem das vendas</f:facet>
+			<f:facet name="footer"> Final da listagem</f:facet>
+			<h:column>
+				<f:facet name="header">Número</f:facet>
+				#{venda.ID}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Cliente</f:facet>
+				#{venda.cliente.nome}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Aberto</f:facet>
+				#{venda.aberto}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Total</f:facet>
+				#{venda.precoTotalS()}
+			</h:column>
+			<h:column>
+				<h:link action="#{VendaBean.editar}" outcome="index.xhtml?vendaN=#{venda.ID}">
+					<h:graphicImage library="img" name="edit.png"
+						style="border:0" width="20" height="20" />
+				</h:link>
+			</h:column>
+			<h:column>
+				<h:commandLink action="#{VendaBean.excluir(venda.ID)}"
+					onclick="if (!confirm('Confirma a exclusão da venda #{venda.ID}?')) return false;">
+					<h:graphicImage library="img" name="delete.png"
+						style="border:0" width="20" height="20" />
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+		<h:link value="Novo" outcome="index.xhtml" />
+	</h:form>
+	<a href="menu.html">Menu Principal</a>
+</h:body>
+</html>

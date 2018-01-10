@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<h:head>
+	<title>Cadastro de Produtos</title>
+        <link rel="stylesheet" type="text/css" href="../resources/css/viewCadastro.css"/>
+	<style>
+     	body
+        {
+          	background: #bababa;
+			background-image: url("../resources/img/p4.jpg");
+            background-size: 1330px 660px;
+			background-repeat: no-repeat;
+			background-position-x: 200px;
+        }
+        #container
+        {
+            margin-top: 7%;
+			margin-left: 25%; 
+			width: 50%;
+			height: 58%;
+        }
+        .messages
+        {
+            margin-left: 25%;
+            width: 50.5%;
+        }
+        .field
+        {
+            margin-top: 10px;
+			margin-left: 20%;
+			height: 65px;
+			width: 60%;
+        }
+	</style>
+</h:head>
+<h:body>
+    <h:form id="cadastro" name="Form">
+        <div id="background"></div>
+            <div class="messages">
+                <div id="messagePanel">
+                    <div id="message" style="background: #{ProdutoBean.currentColors[0]};
+                        border: solid 1px #{ProdutoBean.currentColors[1]};">
+                            #{ProdutoBean.message}
+                    </div>
+		</div>
+                <a href="../../index.xhtml"><div class="close">X</div></a>
+            </div>
+            <div id="container">
+		<div id="serachBox">
+                    <img src="../resources/img/search.png" width="25" height="25"/>
+                    <h:inputText 
+                        id="ID"
+                        name="ID"
+			value="#{ProdutoBean.produto.IDString}"
+			p:type="number" p:placeholder="Pesquisar Produto"
+			p:autocomplete="off"
+                    >
+                        <f:ajax
+                            event="blur" 
+                            render="@form cadastro:btnIncluir"
+                            execute="@this"
+                            onevent="showWaiting"
+                            listener="#{ProdutoBean.buscar}"
+                        >
+                        </f:ajax>
+                    </h:inputText>
+		</div>
+		<div style="margin: 0; margin-top: 15px;">
+                    <div class="line">
+			<div class="field">
+                            <label>Nome</label>
+                            <div class="input">
+                                <img src="../resources/img/name.png" width="25" height="25" />
+                                <h:inputText 
+                                    id="nome"
+                                    name="nome"
+                                    value="#{ProdutoBean.produto.nome}"
+                                    p:type="text" p:placeholder="TRAKINAS MORANGO"
+                                    p:required="true" p:autocomplete="off"
+                                    requiredMessage="Preencha o campo nome!"
+                                    p:autofocus="true">
+                                </h:inputText>
+                            </div>
+			</div>
+                    </div>
+                    <div class="line">
+                        <div class="field">
+                            <label>Preço</label>
+                            <div class="input">
+                                <img src="../resources/img/money.png" width="25" height="25" />
+				<h:inputText 
+                                    id="preco"
+                                    name="preco" 
+                                    value="#{ProdutoBean.produto.preco}"
+                                    p:type="number" p:placeholder="Ex: 42.73"
+                                    p:required="true" p:autocomplete="off"
+                                    p:step="any">
+				</h:inputText>
+                            </div>
+                        </div>
+                    </div>	
+                    <div class="line">
+                        <div class="field">
+                            <label>Monitorado</label>
+                            <div class="input">
+                                <img src="../resources/img/info.png" width="25" height="25" />
+                                <h:selectBooleanCheckbox 
+                                    id="monitorado"
+                                    name="monitorado"
+                                    value="#{ProdutoBean.produto.monitorado}">
+                                </h:selectBooleanCheckbox>
+                                <label></label>
+                            </div>
+			</div>
+                    </div>
+                    <div class="line botoes">
+						<h:commandButton
+                            value="Incluir"
+                            id="btnIncluir"
+                            disabled="#{ProdutoBean.btnIncluir}"
+                            styleClass="button"
+                            actionListener="#{ProdutoBean.incluir}"
+                            onclick="return validacao()">
+                            <f:ajax
+                                execute="@form"
+                                render="@form"
+                                onevent="showWaiting">
+                            </f:ajax>
+						</h:commandButton>
+						
+						<h:commandButton
+                            value="Alterar"
+                            id="btnAlterar"
+                            disabled="#{ProdutoBean.btnAlterar}"
+                            styleClass="button"
+                            actionListener="#{ProdutoBean.editar}"
+                            onclick="return validacao()">
+                            <f:ajax
+                                execute="@form"
+                                render="@form"
+                                onevent="showWaiting">
+                            </f:ajax>
+						</h:commandButton>                        
+                        
+                        
+						<h:commandButton 
+                            value="Excluir"
+                            id="btnExcluir"
+                            disabled="#{ProdutoBean.btnExcluir}"
+                            styleClass="button" 
+                            actionListener="#{ProdutoBean.excluir}"
+                            onclick="return excluir()"
+                        >
+                            <f:ajax 
+                                execute="@form"
+                                render="@form"
+                                onevent="showWaiting"
+                            >
+                            </f:ajax>
+			</h:commandButton>
+                        
+                        <h:commandButton
+                            value="Limpar"
+                            styleClass="button"
+                        >
+                            <f:ajax
+                                event="click"
+                                listener="#{ProdutoBean.clear}"
+                                render="@form"
+                            >
+                            </f:ajax>
+			</h:commandButton>
+                        
+                    </div>		
+		</div>
+            </div>
+	</h:form>
+</h:body>
+    <script type="text/javascript" src="../resources/js/viewCadastro.js"></script>
+    <script type="text/javascript">
+    	if(!#{ProdutoBean.btnIncluir})
+    	{
+    		document.getElementById("cadastro:btnExcluir").setAttribute("disabled", "disabled");
+    		document.getElementById("cadastro:btnAlterar").setAttribute("disabled", "disabled");
+    	}
+    </script>
+</html>

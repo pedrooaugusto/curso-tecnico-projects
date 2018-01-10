@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+	<title>Controle das Mesas</title>
+        <script type="text/javascript" src="list.js"></script>
+	<style>
+        *
+        {
+            margin: 0;
+        }
+     	body
+        {
+          	background: #bababa;
+		background-image: url("../resources/img/p4.jpg");
+                background-size: 1330px 660px;
+		background-repeat: no-repeat;
+		background-position-x: 200px;
+                font-family: 'Century Gothic';
+        }
+        .container
+        {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            position: absolute;
+        }
+        .messages
+        {
+            margin-left: 25%;
+            width: 50.5%;
+        }
+        table{
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+            border: none;
+        }
+        td{
+            border-bottom: solid 1px black;
+            font-family: 'Segoe UI';
+            font-size: 15px;
+            color: black;
+        }
+        th
+        {
+            font-family: 'Segoe UI';
+            font-size: 18px;
+            font-weight: 400;
+        }
+        td, th
+        {
+            text-align: left;
+        }
+        #cont
+        {
+            background: red;
+            width: 800px;
+            height: 500px;
+        }
+        .visible
+        {
+            background: rgba(105, 105, 244, 0.1);
+            text-align: center;
+            font-size: 20px;
+            //border: solid 1px black;
+        }
+        .horizontal
+        {
+            display: flex;
+            flex-flow: column;
+        }
+        .vertical
+        {
+            display: flex;
+            flex-flow: row;
+        }
+        .division-menu
+        {
+            width: calc(100% - 20px);/*2 da borda do visible e 20 do padding*/
+            height: calc(6% - 2px);
+            padding-left: 20px;
+            align-items: center;
+            background: rgba(53, 53, 53, 0.7);
+            border:none;
+        }
+        .division-menu span
+        {
+            height: 100%;
+            background: rgba(80, 80, 80, 0.7);
+            margin-left: 5px;
+            margin-right: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            display: flex;
+            align-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Segoe UI';
+            font-weight: 600;
+            width: 13%;
+            cursor: pointer;
+            -webkit-transition-duration: 0.15s;
+        }
+        .division-menu span:hover
+        {
+            width: 15%;
+            background: rgb(105, 105, 255);
+        }
+        .division-mesas
+        {
+            height: calc(100% - 10px);
+            width: calc(35% - 0px);/*da borda do visible*/
+            padding: 5px;
+            border: none;
+            //background: red;
+        }
+        .division-mesas .col
+        {
+            width: 55%;
+            /*height: calc(100% - 5px);*/
+            background: none;
+            border: none;
+            margin: 5px;
+            align-items: center;
+        }
+        .aCardButton
+        {
+            background: rgba(198,226,254, 0.8);
+            width: calc(100% - 10px);
+            height: 28%;
+            padding: 5px;
+            margin-bottom: 5px;
+            font-family: 'Century Gothic';
+            display: flex;
+            flex-flow: row;
+            border: solid 1px rgb(22, 73, 154);
+            color:rgb(0,102,102);
+            box-shadow: 2px 2px 4px #252525;
+            -webkit-transition-duration: 0.15s;
+        }
+        .aCardButton:hover
+        {
+            color: white;
+            background: rgb(50,180,255);
+        }
+        .aCardButton .numero
+        {
+            font-weight: bold;
+            font-size: 36px;
+        }
+        .aCardButton .data, .status
+        {
+            margin-top: 4px;
+            font-size: 21px;
+        }
+        .abrirButton
+        {
+            background: royalblue;
+            border: solid 1px royalblue;
+            color: white;
+            width: 100%;
+            height: 20%;
+            cursor: pointer;
+            margin-top: 4px;
+            font-size: 20px;
+        }
+        .aCardButton .status
+        {
+            
+        }
+        .division-mesa-dados
+        {
+            height: calc(100% - 0px);
+            width: calc(100% - 0px);
+            border: none;
+        }
+        .janela-mesa
+        {
+            width: 5%;/*95*/
+            height: 6%;/*85*/
+            margin-top: 5%;
+            margin-left: 2%;
+            -webkit-transition-duration: 0.4s;
+            border: none;
+            background: rgba(255, 255, 255, 0.7);
+            /*box-shadow: 1px 1px 3px black;
+            border-top: solid 1px grey;
+            border-left: solid 1px grey;*/
+        }
+        #fecharBar-janela
+        {
+            text-align: left;
+            padding: 1px;
+            padding-left: 10px;
+            color: white;
+            font-weight: 900;
+            font-family: 'Segoe UI Semibold';
+            font-size: 25px;
+            font-stretch: extra-condensed;
+            visibility: hidden;
+        }
+        #telaEspera-janela
+        {
+            background: none;
+            height: 100%;
+            margin: 5px;
+            align-items: center;
+            display: none;
+        }
+        #telaEspera-janela img:nth-child(1)
+        {
+            font-size: 30px;
+            font-family: 'Segoe UI';
+            margin-top: 10%;
+            visibility: hidden;
+        }
+        #mesaDados-janela
+        {
+            padding: 10px;
+            height: 100%;
+            width: calc(100% - 20px);
+            border: none;
+            background: none;
+            display: none;
+        }
+        .basicInfo-mesa
+        {
+            width: 90%;
+            height: 10%;
+            background: rgba(255, 255, 255, 0.7);
+            /*box-shadow: 1px 1px 3px black;
+            border-top: solid 1px gray;
+            border-left: solid 1px gray;*/
+        }
+        .basicInfo-mesa label
+        {
+            font-family: 'Segoe UI';
+            font-size: 20px;
+            margin-left: 18px;
+            display: flex;
+            padding-left: 3px;
+            
+            align-items: center;
+            /*I'M SO HAPPY CAUSE TODAY I 
+            FOUND MY FRIENDS, IN MY HEAD*/
+        }
+        .basicInfo-mesa label span
+        {
+            border-right: solid 1px black;
+            padding-right: 8px;
+        }
+        .basicInfo-mesa label input:hover
+        {
+            background: rgb(22, 73, 154);
+        }
+        .basicInfo-mesa label input
+        {
+            cursor: pointer;
+            height: 90%;
+            font-weight: bold;
+            background: rgb(104, 104, 255);
+            color: white;
+            border: none;
+            font-size: 16px;
+        }
+        .basicInfo-mesa label:first-child
+        {
+            margin-left: 12px;
+            letter-spacing: 0.090em;
+            font-weight: bold;
+        }
+        .formSelecionarProduto
+        {
+            width: calc(35% - 10px);
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            /*box-shadow: 1px 1px 3px black;
+            border-top: solid 1px gray;
+            border-left: solid 1px gray;*/
+        }
+        #listComponent
+        {
+            width: 100%;
+            height: 50%;
+            border: none;
+            background: none;
+        }
+        .field
+        {
+            width: 100%;
+            border: none;
+            background: none;
+            margin-top: 18px;
+        }
+        .label
+        {
+            text-align: left;
+            font-family: 'Segoe UI Semibold';
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+        #listComponent input, .field input, .field textArea
+        {
+            height: 33px;
+            font-family: 'Segoe UI';
+            font-size: 16px;
+            color: black;
+            background: white;
+            border: solid 1px rgb(156,156,255);
+            padding-left: 3px;
+        }
+        #listComponent input:focus, .field input:focus, .field textArea:focus {
+            outline: none;
+        }
+        #listComponent .listaDeItems
+        {
+            background: rgb(238,238,238);
+            height: calc(100% - 60px);
+            border: solid 1px rgb(156,156,255);
+            border-top: none;
+        }
+        .listaDeItems{
+            margin: 0;
+            background: none;
+            padding-left: 5px;
+            padding-right: 5px;
+            overflow-y: scroll;
+            display: flex;
+            flex-flow: column;
+        }
+        .listaDeItems li:hover
+        {
+            background: white;
+            outline: blue 1px solid;
+        }
+        .listaDeItems li span
+        {
+            display: block;
+            margin: 3px;
+        }
+        .listaDeItems li
+        {
+            margin-top: 5px;
+            padding: 3px;
+            cursor: pointer;
+            background: none;
+            font-family: 'Segoe UI';
+            -webkit-transition-duration: 0.1s;
+            -moz-transition-duration: 0.1s;
+            font-size: 18px;
+            text-align: left;
+        }
+        .listaDeItems .idade
+        {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .button
+        {
+            border: none;
+            background: none;
+            margin-top: 10px;
+            height: 30px;
+        }
+        .button input
+        {
+            cursor: pointer;
+            height: 100%;
+            font-weight: bold;
+            background: rgba(255,0,0, 0.7);
+            color: white;
+            border: none;
+            border-bottom: solid 3px rgb(180,0,0);
+            border-right: solid 3px rgb(180,0,0);
+        }
+        .button input:hover
+        {
+            background: rgb(230,0,0);
+            border: none;
+        }
+        .historicoPedidos
+        {
+            width: 65%;
+            margin-left: 7px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            /*box-shadow: 1px 1px 3px black;
+            border-top: solid 1px gray;
+            border-left: solid 1px gray;*/
+        }
+        .n{
+            width:20px;
+            padding-left: 3px;
+            text-align: left;
+        }
+        .icons{
+            width: 20px;
+        }
+        .icons:hover{
+            cursor: pointer;
+            background: rgb(104, 104, 255);
+        }
+        .listItem{
+            background: darkblue;
+            border-bottom: solid 5px white;
+            cursor:pointer;
+        }
+        
+        .listItem:hover{
+            background: #3f51b5;
+        }
+        .item{
+            font-size: 20px;
+            color: white;
+            text-align: left;
+            width:70%;
+        }
+        .itemPrice{
+            font-size: 16px;
+            color: white;
+            text-align: left;
+            width:30%;
+        }
+        .mVisible{display: block;}
+        .mInvisible{display: none;}
+        .itemTableRow td
+        {
+            padding: 5px;
+            padding-top: 10px;
+            text-shadow: 1px 1px 1px #d4d4d4;
+        }
+        .p{
+            background: rgba(230, 225, 247, 0.65);
+        }
+        .i{
+            background: rgba(245, 162, 247, 0.48);
+        }
+        #table-wrapper {
+            position:relative;
+        }
+        #table-scroll {
+            height:400px;
+            overflow:auto;  
+            margin-top:20px;
+        }
+        #table-wrapper table {
+            width:100%;
+        }
+        #linkFecharConta
+        {
+            text-decoration: none;
+            color: white;
+            background: #929efb;
+            height: 35px;
+            line-height: 35px;
+            padding-left: 5px;
+            padding-right: 5px;
+            font-weight: 600;
+        }
+	</style>
+</h:head>
+    <h:body>
+        <div class="container">
+            <div class="division-menu vertical visible">
+                <span><a href="../index.xhtml" style="text-decoration: none; color: white;">Menu Principal</a></span>
+                <span>Hello, Doctor.</span>
+            </div>
+            <div style="display: flex; flex-flow: row; width: 100%; height: 100%;">
+                <div class="division-mesas vertical visible">
+                    <div class="col horizontal visible" style="margin-right: 3px;" id="col1">
+                        <ui:repeat value="#{MesaBean.impares()}" var="botao">
+                            <div class="aCardButton vertical">
+                                <div style="width: 100%;" data-mesa-id = "#{botao.numeroMesa}">
+                                    <div class="numero">
+                                        #{botao.numeroMesa}
+                                    </div>
+                                    <div class="data">
+                                        <b>R$ #{botao.precoTotal}</b>
+                                    </div>
+                                    <div class="status">
+                                        #{botao.status}
+                                    </div>
+                                    <h:commandButton
+                                        value="Abrir"
+                                        styleClass="abrirButton"
+                                        onclick="controleMesa.abrir(this.parentNode.parentNode)">
+                                        <f:ajax
+                                            event="click"
+                                            listener="#{MesaBean.clickBotaoMesa(botao.numeroMesa)}"
+                                            render="mesaN totalN statusN buttonAbrirConta casaDosDados linkFecharConta"
+                                            onevent="showWaiting"
+                                        >
+                                        </f:ajax>
+                                    </h:commandButton>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                    <div class="col horizontal visible" style="margin-left: 3px;" id="col2">
+                        
+                        <ui:repeat value="#{MesaBean.pares()}" var="botao">
+                            <div class="aCardButton vertical">
+                                <div style="width: 100%;" data-mesa-id = "#{botao.numeroMesa}">
+                                    <div class="numero">
+                                        #{botao.numeroMesa}
+                                    </div>
+                                    <div class="data">
+                                        <b>R$ #{botao.precoTotal}</b>
+                                    </div>
+                                    <div class="status">
+                                        #{botao.status}
+                                    </div>
+                                    <h:commandButton
+                                        value="Abrir"
+                                        styleClass="abrirButton"
+                                        onclick="controleMesa.abrir(this.parentNode.parentNode)">
+                                        <f:ajax
+                                            event="click"
+                                            listener="#{MesaBean.clickBotaoMesa(botao.numeroMesa)}"
+                                            render="mesaN totalN statusN buttonAbrirConta casaDosDados linkFecharConta"
+                                            onevent="showWaiting"
+                                        >
+                                        </f:ajax>
+                                    </h:commandButton>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                        
+                    </div>
+                </div>
+                <div class="division-mesa-dados horizontal visible" id="division-mesa-data">
+                    <div class="janela-mesa horizontal visible" id="janela-mesa">
+                        <div id="fecharBar-janela" style="background: rgba(255, 0, 0, 0.7);">
+                            <span onclick="controleMesa.fechar();" style="cursor: pointer;">X</span>
+                        </div>
+                        <div id="telaEspera-janela" class="horizontal">
+                            <img src="../resources/img/Loading (2).gif" width="50" height="50"/>
+                            LOADING...
+                        </div>
+                        <div class="horizontal visible" id="mesaDados-janela">
+                            <div class="basicInfo-mesa vertical visible">
+                                <label>
+                                    <h:panelGroup id="mesaN">Mesa 0#{MesaBean.currentBotao.numeroMesa}</h:panelGroup>
+                                </label>
+                                <label>
+                                    <h:panelGroup id="totalN">Total a Pagar: R$ #{MesaBean.currentBotao.precoTotal}</h:panelGroup>
+                                </label>
+                                <label>
+                                    <h:panelGroup id="statusN">Status: #{MesaBean.currentBotao.status}</h:panelGroup>
+                                </label>
+                                <label>
+                                    <h:link value="Fechar Conta" outcome="#{MesaBean.pagarContal()}" id="linkFecharConta"/>
+                                </label>
+                            </div>
+                
+                            <h:commandButton 
+                                value="Click aqui para abrir esta mesa"
+                                id="buttonAbrirConta"
+                                styleClass="#{MesaBean.newPedido()}"
+                                onclick="abrirConta()"
+                                style="margin-top: 30px; padding: 10px; cursor: pointer;
+                                font-size: 20px; background: royalblue; color: white;
+                                border: solid 1px white">
+                                <f:ajax
+                                    event="click"
+                                    listener="#{MesaBean.abrirPedido}"
+                                    >
+                                </f:ajax>
+                            </h:commandButton>
+                            
+                            <h:panelGroup layout="block" class="vertical" style="height: 100%; width: 100%; margin-top: 7px; display: #{MesaBean.newPedido().equals('mVisible') ? 'none' : 'flex'};" id="casaDosDados">
+                                <h:form id="cadastro" name="Form" styleClass="formSelecionarProduto horizontal visible">
+                                    <h:inputText id="itemID" style="display:none;" value="#{MesaBean.idProduto}"></h:inputText>
+                                        <div id="listComponent" class="listComponent horizontal visible">
+                                            <label class="label">Selecione um item</label>
+                                            <h:inputText id="itemName" autocomplete="off" value="#{MesaBean.vazio()}"
+                                                         p:placeholder="Selecione um produto"
+                                                         styleClass="search">    
+                                            </h:inputText>
+                                            <ul type="none" class="list listaDeItems" id="listaProdutos">
+                                                <ui:repeat value="#{ProdutoBean.lista}" var="produto">
+                                                    <li onclick="listProduto.selecionar(this)">
+                                                        <span class="nome">#{produto.nome}</span>
+                                                        <span class="idade">R$#{produto.preco}</span>
+                                                        <span style="display: none;">#{produto.ID}</span>
+                                                    </li>
+                                                </ui:repeat>
+                                            </ul>
+                                        </div>
+                                        <div class="field horizontal visible">
+                                            <label class="label">Quantidade</label>
+                                            <h:inputText id="itemQuantidade" autocomplete="off"
+                                                         p:type="number" p:step="any"
+                                                         p:placeholder="Quantidade do prduto x"
+                                                         value="#{MesaBean.item.quant}">
+                                            </h:inputText>
+                                        </div>
+                                        <div class="field horizontal visible">
+                                            <label class="label">Comentário</label>
+                                            <h:inputTextarea id="itemComment" value="#{MesaBean.item.comentario}">
+                                                
+                                            </h:inputTextarea>
+                                        </div>
+                                        <div class="button horizontal visible">
+                                            <!--<input type="button" value="Adicionar" onclick="adicionarPedido()"/>-->
+                                            
+                                <h:commandButton 
+                                    value="Adcionar">
+                                    <f:ajax
+                                        event="click"
+                                        execute="cadastro:itemComment cadastro:itemQuantidade cadastro:itemID"
+                                        render="cadastro:itemComment cadastro:itemQuantidade cadastro:itemID listaPedido totalN"
+                                        listener="#{MesaBean.incluirItem}"
+                                        onevent="function(data){var status = data.status; if(status=='success')adicionarPedido();}"
+                                        >
+                                    </f:ajax>
+                                </h:commandButton>                
+                                            
+                                            
+                                        </div>
+                                </h:form>
+                                <div class="historicoPedidos horizontal">
+                                    <div id="table-wrapper">
+                                        <div id="table-scroll">
+                                            <h:dataTable
+                                                value="#{MesaBean.currentBotao.items}"
+                                                var="item"
+                                                id="listaPedido"
+                                                headerClass="employeeTableHeader"
+                                                rowClasses="itemTableRow p,itemTableRow i">
+                                                <h:column>
+                                                    <f:facet name="header" class="n"></f:facet>#{item.numeracao}
+                                                </h:column>
+                                                <h:column> 
+                                                    <f:facet name="header">Descricao</f:facet>#{item.produto.nome}
+                                                </h:column>
+                                                <h:column> 
+                                                    <f:facet name="header">Preco</f:facet>#{item.produto.precoS()}
+                                                </h:column>
+                                                <h:column> 
+                                                    <f:facet name="header">Quantidade</f:facet>#{item.quant}
+                                                </h:column>
+                                                <h:column> 
+                                                    <f:facet name="header">Total</f:facet>#{item.total()}
+                                                </h:column>
+                                            </h:dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+    <script type="text/javascript">
+        var options = {valueNames: ['nome', 'idade']};
+        var lista = new List('listComponent', options);
+        var listProduto = new ListProduto();
+        var controleMesa = new JanelaMesa();
+        var listaPedido = document.getElementById("listaPedido");
+        
+        function abrirConta(){
+            document.getElementById("buttonAbrirConta").style.display = "none";
+            document.getElementById("casaDosDados").style.display = "flex";
+        }
+        
+        function addCardMesa(coluna, numero, total, status)
+        {
+            var coluna = document.getElementById("col"+coluna);
+            var cardMesa = getCardMesa(numero, total, status);
+            coluna.innerHTML+=cardMesa;
+        }
+        function getCardMesa(numero, total, status)
+        {
+            var k = ['aCardButton', 'width:100%;', 'numero', 'data', 'status', 'controleMesa.abrir(this)'];
+            var card =  "<div class="+k[0]+" onclick="+k[5]+"><div style="+k[1]+"><div class="+k[2]+">"+numero+"</div><div class="+k[3]+"><b>"+total+"</b></div><div class="+k[4]+">"+status+"</div></div></div>";
+            return card;
+        }
+        var numeracao_ped = 2;
+        function adicionarPedido()
+        {
+            var id = listProduto.lasProduto.id;
+            var preco = listProduto.lasProduto.preco.replace(",", ".").replace("R$", "").replace(" ", "");
+            var desc = listProduto.lasProduto.desc;
+            var quant = listProduto.nextInput.value;
+            var coment = document.getElementById("cadastro:itemComment").value;
+            var total = parseFloat(preco) * parseFloat(quant);
+            numeracao_ped+=1;
+            var p2 = total.toFixed(2).replace(".", ",");
+            var p3 = parseFloat(preco).toFixed(2).replace(".", ",");
+            //document.getElementById("listaPedido").children[0].innerHTML+=getPedidoHTML(numeracao_ped, desc, p3, quant, p2);
+            listProduto.limparForm();
+            document.getElementById("cadastro:itemComment").value = "";
+                                document.getElementById("table-scroll").scrollTop = 
+                            document.getElementById("table-scroll").scrollHeight;
+            if(quant !== ""){
+                var currentMesaNumero = controleMesa.currentMesaDisplay.numero;
+                var currentMesaObj = document.querySelector("[data-mesa-id='"+currentMesaNumero+"']");
+
+                currentMesaObj.querySelector('.status').innerText = "Ocupada";
+                var currentTotalPrice = currentMesaObj.querySelector('.data').querySelector('b').innerText;
+                currentTotalPrice = parseFloat(currentTotalPrice.replace('R$ ', ''));
+                currentTotalPrice += total;
+                console.log(currentTotalPrice);
+                currentMesaObj.querySelector('.data').querySelector('b').innerText = "R$ "+currentTotalPrice.toFixed(1).replace(".", ".")
+            }
+        }
+        function getPedidoHTML(numero, desc, preco, quant, total)
+        {
+            var l = ['n', 'icons', '../resources/img/edit.png', '../resources/img/delete.png'];
+            var k = "<tr><td class="+l[0]+">"+numero+"</td><td>"+desc+"</td><td>R$ "+preco+"</td><td>"+quant+"</td><td>R$ "+total+"</td><td class="+l[1]+"><img src="+l[2]+" /></td><td class="+l[1]+"><img src="+l[3]+" /></td></tr>";
+            return k;
+        }
+        function ListProduto()
+        {
+            this.lasProduto = {desc: '', preco: '', id: ''};
+            this.input = document.getElementById("cadastro:itemName");
+            this.produtoIdInput = document.getElementById("cadastro:itemID");
+            this.nextInput = document.getElementById("cadastro:itemQuantidade");
+            this.selecionar = function (li){
+                this.lasProduto.desc = li.children[0].innerText;
+                this.lasProduto.preco = li.children[1].innerText;
+                this.lasProduto.id = li.children[2].innerText;
+                this.input.value = this.lasProduto.desc;
+                this.produtoIdInput.value = this.lasProduto.id;
+                lista.search(this.lasProduto.desc);
+                this.nextInput.focus();
+            };
+            this.reload = function()
+            {
+                this.input = document.getElementById("cadastro:itemName");
+                this.produtoIdInput = document.getElementById("cadastro:itemID");
+                this.nextInput = document.getElementById("cadastro:itemQuantidade");
+            };
+            this.limparForm = function(){
+                this.lasProduto.desc = '';
+                this.lasProduto.preco = '';
+                this.lasProduto.id = '';
+                this.input.value = '';
+                this.produtoIdInput.value = '';
+                this.nextInput.value = '1';
+                document.getElementById("cadastro").reset();
+                lista.search(this.lasProduto.desc);
+            };
+        }
+        function produtoSelecionado(li)
+        {
+            var desc = li.children[0].innerText;
+            var preco = li.children[1].innerText;
+            var id = li.children[2].innerText;
+        }
+        function JanelaMesa()
+        {
+            this.isVisible = false;
+            this.janela = document.getElementById("janela-mesa");
+            this.fecharButton = document.getElementById("fecharBar-janela");
+            this.mesaDados = document.getElementById("mesaDados-janela");
+            this.currentMesaDisplay = {numero: -1, obj: null};
+            this.loadingScreen = document.getElementById("telaEspera-janela");
+            this.timerLoading = null;
+            this.shacalhar = function (){
+                alert(42);
+            };
+            this.abrir = function (aCardButton){
+                aCardButton.style.background = "rgb(50,180,255)";
+                aCardButton.style.color = "white";
+                if(this.currentMesaDisplay.numero === -1){
+                    this.abrirV(aCardButton);
+                }
+                else{
+                    this.currentMesaDisplay.obj.removeAttribute("style");
+                    this.currentMesaDisplay.obj = aCardButton;
+                    this.currentMesaDisplay.numero = aCardButton.
+                            children[0].children[0].innerText;
+                    clearTimeout(this.timerLoading);
+                    this.abrirTelaLoading();
+                }
+            };
+            this.abrirV = function (aCardButton){
+                this.currentMesaDisplay.obj = aCardButton;
+                this.currentMesaDisplay.numero = aCardButton.children[0].children[0].innerText;
+                this.isVisible = true;
+                this.fecharButton.style.visibility = "visible";
+                this.janela.style.height = "85%";
+                this.janela.style.width = "95%";
+                this.abrirTelaLoading();
+                var _this = this;
+                setTimeout(function(){
+                    _this.janela.children[1].children[0].style.visibility = "visible";
+                }, 450);
+            };
+            this.fechar = function (){
+                this.currentMesaDisplay.obj.removeAttribute("style");
+                this.currentMesaDisplay.obj = null;
+                this.currentMesaDisplay.numero = -1;
+                this.isVisible = false;
+                this.janela.style.width = "5%";
+                this.janela.style.height = "6%";
+                this.fecharTelaLoading();
+                var _this = this;
+                clearTimeout(this.timerLoading);
+                setTimeout(function(){
+                    _this.fecharButton.style.visibility = "hidden";
+                }, 400);
+                setTimeout(function(){
+                    _this.janela.children[1].children[0].style.visibility = "hidden";
+                    _this.mesaDados.style.display = "none";
+                }, 100);
+            };
+            this.abrirTelaLoading = function (){
+                this.mesaDados.style.display = "none";
+                this.loadingScreen.style.display = "flex";
+                var _this = this;
+                this.timerLoading = setTimeout(function(){
+                    _this.fecharTelaLoading();
+                    _this.mesaDados.style.display = "flex";
+                }, 1600);
+            };
+            this.fecharTelaLoading = function (){
+                this.loadingScreen.style.display = "none";
+            };
+        }
+        function showWaiting(data)
+        {
+            var status = data.status;
+            switch (status) 
+            {
+                case "begin": // Before the ajax request is sent.
+                break;
+                case "complete": // After the ajax response is arrived.
+                    //lista = new List('listComponent', options);
+                break;
+                case "success": // After update of HTML DOM based on ajax response..
+                    //a.innerText = document.getElementById("message").innerText;
+                    lista = new List('listComponent', options);
+                    listProduto.reload();
+                break;
+            }
+            if (status == "begin")
+                return true;
+        }
+        onload = function ()
+        {
+            /*addCardMesa(1, '01', 'R$ 04.50', 'Ocupado');
+            addCardMesa(1, '03', 'R$ 03.78', 'Ocupado');
+            addCardMesa(1, '05', 'R$ 00.00', 'Livre');
+            addCardMesa(1, '07', 'R$ 30.00', 'Ocupado');*/
+            
+            /*addCardMesa(2, '02', 'R$ 31.40', 'Ocupado');
+            addCardMesa(2, '04', 'R$ 11.78', 'Ocupado');
+            addCardMesa(2, '06', 'R$ 04.40', 'Ocupado');
+            addCardMesa(2, '08', 'R$ 00.00', 'Livre');*/
+        };
+    </script>
+</html>

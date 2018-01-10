@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title>Fechar Conta</title>
+        <script type="text/javascript" src="list.js"></script>
+        <style>
+            *
+            {
+                margin: 0;
+            }
+            body
+            {
+                background-image: url("../resources/img/p4.jpg");
+                background-size: 1366px 768px;
+                background-repeat: no-repeat;
+                font-family: 'Century Gothic';
+            }
+            .container
+            {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-flow: column;
+                position: absolute;
+            }
+            #box{
+                background: rgb(211,211,222);
+                width: 600px;
+                height:420px;
+                align-self: center;
+                margin-top: 6%;
+                border: solid 1px black;
+                display: flex;
+                flex-flow: column;
+                padding: 5px;
+            }
+            #title{
+                padding: 4px;
+                color: white;
+                background: rgb(59,59,59);
+                font-size: 25px;
+                text-align: center;
+            }
+            .mesa-numero
+            {
+                background: white;
+                box-shadow: 1px 1px 0px black;
+                font-size: 25px;
+                padding: 3px;
+                padding-left: 10px; 
+                margin-top: 10px;
+                font-family: 'Segoe UI';
+            }
+            .dataBox{
+                background: white;
+                box-shadow: 1px 1px 0px black;
+                padding: 3px;
+                margin-top: 5px;
+            }
+            .field
+            {
+                display: flex;
+                flex-flow: column;
+                padding-left: 10px;
+            }
+            .field .input
+            {
+                border: none;
+                border-bottom: solid 1px gray;
+                outline: none;
+                font-family: 'Segoe UI';
+                font-size: 20px;
+                padding-left: 8px;
+                
+                padding-top: 5px;
+                padding-bottom: 5px;
+                background: #f7f7f7;
+                //margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            input[type="checkbox"]
+            {
+                /* Double-sized Checkboxes */
+                -ms-transform: scale(1.5); /* IE */
+                -moz-transform: scale(1.5); /* FF */
+                -webkit-transform: scale(1.5); /* Safari and Chrome */
+                -o-transform: scale(1.5); /* Opera */
+            }
+            input[type="checkbox"] + label:after
+            {
+                content: 'Nao';
+            }
+            input[type="checkbox"]:checked + label:after
+            {
+                content: 'Sim';
+            }
+            .field .fieldName
+            {
+                font-family: 'Segoe UI';
+                font-size: 23px;
+            }
+            .button{
+                margin:1%;
+                width:40%;
+                border: solid 1px white;
+                height: 35px;
+                font-size: 20px;
+                background: rgb(102,102,255);
+                color:white;
+                cursor: pointer;
+            }
+            .botoes
+            {
+                padding-left: 100px;
+                display: flex;
+            }
+            .cancelButton
+            {
+                width:40%;
+                margin:1%;
+                text-decoration: none;
+                color: white;
+                border: solid 1px white;
+                background: red;
+                height: 35px;
+                line-height: 30px;
+                
+                font-family: 'Segoe UI';
+                font-size: 23px;
+                display: block;
+            }
+            .button:hover{
+                border: solid 1px rgb(102,102,255);
+                background: white;
+                color:rgb(102,102,255);
+            }
+            
+        </style>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <f:metadata> 
+                <f:viewParam name="nMesa" value="#{NotaFiscalBean.currentMesa}" />
+                <f:viewAction action="#{NotaFiscalBean.loadPedido()}"/>
+            </f:metadata>
+            <div id="box">
+                <div id="title"> Concluindo pedido... </div>
+                <h:form id="pagamento" name="Form">
+                    <div class="mesa-numero">
+                        <span>Mesa #{NotaFiscalBean.currentPedido.mesa}</span>
+                    </div>
+
+                    <div class="dataBox">
+                        <div class="field">
+                            <span class="fieldName">Data</span>
+                            <h:inputText id="data" p:readonly="readonly" styleClass="input" value="#{NotaFiscalBean.currentPagamento.data}"></h:inputText>
+                        </div>
+                        <div class="field">
+                            <span class="fieldName">Valor</span>
+                            <h:inputText id="valor" p:readonly="readonly" styleClass="input" value="#{NotaFiscalBean.currentPagamento.valor}"></h:inputText>
+                        </div>
+                        <div class="field" style="margin-bottom:10px;">
+                            <span class="fieldName" style="font-size: 20px;">Desconto para clientes
+                                <input type="checkbox" style="margin-left: 5px; margin-right: 5px;" onclick="showCombo()"/>
+                                <label></label>
+                            </span>
+                        </div>
+                        <div class="field" id="jt" style="display: none;">
+                            <span class="fieldName" style="font-size: 20px;">Selecione um cliente </span>
+                            <h:selectOneMenu value="#{NotaFiscalBean.nCliente}" styleClass="input">
+                                <f:selectItems value="#{ClienteBean.lista}" var="cli" 
+                                        itemValue="#{cli.codigo}" itemLabel="#{cli.nome}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <center>
+                        <div class="line botoes">
+                            <h:commandButton
+                                value="Finalizar"
+                                id="btnIncluir"
+                                styleClass="button">
+                                <f:ajax
+                                    execute="@form"
+                                    event="click"
+                                    listener="#{NotaFiscalBean.incluir}"
+                                    onevent="function(data){var status = data.status; if(status=='success'){history.pushState('', '', '/Mesa');history.go();}}">
+                                </f:ajax>
+                            </h:commandButton>
+                            <h:link value="Cancelar" styleClass="cancelButton" outcome="index.xhtml"/>
+                        </div>
+                    </center>
+                </h:form>
+            </div>
+
+        </div>
+    </h:body>
+    <script type="text/javascript" src="../resources/js/viewCadastro.js">
+    </script>
+    <script type="text/javascript">
+        function showCombo()
+        {
+            var c = document.getElementById("jt");
+            if(c.style.display === "none")
+                c.style.display = "flex";
+            else
+                c.style.display = "none";
+        }
+    </script>
+</html>

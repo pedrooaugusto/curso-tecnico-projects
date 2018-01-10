@@ -1,0 +1,37 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+	<!-- 
+		just take it, i could'nt care less
+		mysql://b6bfd248038583:8337a495@us-cdbr-iron-east-05.cleardb.net/heroku_cdf07abcb519fcf?reconnect=true-->
+        <property name="hibernate.connection.url">jdbc:mysql://us-cdbr-iron-east-05.cleardb.net/heroku_cdf07abcb519fcf?createDatabaseIfNotExist=true</property>
+	    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+	    <property name="current_session_context_class">thread</property>
+	    <property name="hibernate.connection.username">b6bfd248038583</property>
+	    <property name="hibernate.connection.password">8337a495</property>
+	    
+	   <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sabordoriomodsis?createDatabaseIfNotExist=true</property>
+	    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+	    <property name="current_session_context_class">thread</property>
+	    <property name="hibernate.connection.username">root</property>
+	    <property name="hibernate.connection.password"></property>-->
+	      
+	    <property name="hibernate.show_sql">true</property>
+	    <property name="hibernate.format_sql">true</property>
+	    <property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+	    
+        <mapping class="modelo.Cliente" />
+        <mapping class="modelo.NotaFiscal" />
+        <mapping class="modelo.Pagamento" />
+        <mapping class="modelo.Pedido_Produto" />
+        <mapping class="modelo.Pedido" />
+        <mapping class="modelo.Produto" />
+                    	
+	</session-factory>
+</hibernate-configuration>

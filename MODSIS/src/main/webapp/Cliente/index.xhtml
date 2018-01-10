@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<h:head>
+	<title>Cadastro de Clientes</title>
+        <link rel="stylesheet" type="text/css" href="../resources/css/viewCadastro.css"/>
+        <style>
+            body
+            {
+                background-image: url("b2.jpg");
+                background-size: cover;
+                background-position-y: -70px;
+                background-repeat: no-repeat;
+            }
+            
+            #container
+            {
+                margin-top: 7%;
+                margin-left: 20%; 
+                width: 60%;
+                height: 68%;
+            }
+            .messages
+            {
+                margin-left: 20%;
+                width: 60.5%;
+            }
+            .field
+            {   
+                margin-top: 10px;
+                height: 65px;
+                width: 50%;
+            }
+        </style>
+</h:head>
+    <h:body>
+	<h:form id="cadastro" name="Form">
+		<div id="background"></div>
+		<div class="messages">
+                    <div id="messagePanel">
+                        <div id="message" style="background: #{ClienteBean.currentColors[0]};
+                            border: solid 1px #{ClienteBean.currentColors[1]};">
+                                #{ClienteBean.message}
+			</div>
+                    </div>
+                    <a href="../../index.xhtml" style="text-decoration: none;"><div class="close">X</div></a>
+		</div>
+		<div id="container">
+                    <div id="serachBox">
+			<img src="../resources/img/search.png" width="25" height="25"/>
+			<h:inputText 
+                            id="codigo"
+                            name="codigo"
+                            value="#{ClienteBean.cliente.codigoString}"
+                            p:type="number" p:placeholder="Pesquisar Cliente"
+                            p:autocomplete="off"
+                        >
+                            <f:ajax event="blur" 
+                                render="@form btnIncluir"
+                                execute="cadastro:codigo"
+                                listener="#{ClienteBean.buscar}"
+                                onevent="showWaiting"
+                            >
+                            </f:ajax>
+			</h:inputText>
+                    </div>
+                    <div style="margin: 0; margin-top: 20px;">
+			<div class="line">
+                            <div class="field">
+                                <label>Nome</label>
+				<div class="input">
+                                    <img src="../resources/img/name.png" width="25" height="25" />
+                                    <h:inputText id="nome" name="nome" 
+                                        value="#{ClienteBean.cliente.nome}"
+                                        p:type="text" p:placeholder="Queen Elizabeth, the First"
+                                        p:required="true" p:autocomplete="off"
+                                        p:autofocus="true">
+                                    </h:inputText>
+				</div>
+                            </div>
+                            <div class="field min">
+				<label>Telefone</label>
+				<div class="input">
+                                    <img src="../resources/img/telephone.png" width="25" height="25" />
+                                    <h:inputText id="tel" name="tel" 
+					value="#{ClienteBean.cliente.tel}"
+					p:type="text" p:placeholder="Ex: 21 3764-3126" 
+					p:required="true" p:autocomplete="off">
+                                    </h:inputText>
+				</div>
+                            </div>
+                        </div>
+			<div class="line">
+                            <div class="field">
+				<label>Email</label>
+				<div class="input">
+                                    <img src="../resources/img/email.png" width="25" height="25" />
+                                    <h:inputText id="email" name="email" 
+					value="#{ClienteBean.cliente.email}"
+					p:type="email" p:placeholder="Ex: theDoctor@who.com"
+					p:required="true" p:autocomplete="off">
+                                    </h:inputText>
+				</div>
+                            </div>
+                            <div class="field min">
+				<label>Celular</label>
+				<div class="input">
+                                    <img src="../resources/img/mobilephone.png" width="25" height="25" />
+                                    <h:inputText id="cel" name="cel" 
+                                        value="#{ClienteBean.cliente.cel}"
+                                        p:type="text" p:placeholder="Ex: 21 97342-4273"
+                                        p:required="true" p:autocomplete="off">
+                                    </h:inputText>
+				</div>
+                            </div>
+                        </div>	
+			<div class="line">
+                            <div class="field">
+                                <label>Endereço</label>
+                                <div class="input">
+                                    <img src="../resources/img/location.png" width="25" height="25" />
+                                        <h:inputText id="endereco" name="endereco" 
+                                            value="#{ClienteBean.cliente.endereco}"
+                                            p:type="text" p:placeholder="Ex: Rua Quarenta e dois, 42"
+                                            p:required="true" p:autocomplete="off">
+					</h:inputText>
+				</div>
+                            </div>
+                            <div class="field min">
+				<label>Payment day</label>
+				<div class="input">
+                                    <img src="../resources/img/date.png" width="25" height="25" />
+                                    <h:inputText id="diaPagamento" name="diaPagamento" 
+					value="#{ClienteBean.cliente.diaPagamento}"
+					p:type="number" p:placeholder="Ex: 11"
+					p:required="true" p:autocomplete="off">
+                                    </h:inputText>
+				</div>
+                            </div>
+                        </div>		
+			<div class="line">
+                            <div class="field min" style="margin-left:55%;">
+                                <label>Status</label>
+                                <div class="input">
+                                    <img src="default.png" width="25" height="25" />
+                                    <h:inputText id="estadoConta" name="estadoConta" 
+                                        value="#{ClienteBean.cliente.estadoConta}"
+					p:type="text" p:placeholder="Ex: Ok"
+					p:required="true" p:autocomplete="off">
+                                    </h:inputText>
+				</div>
+                            </div>
+			</div>
+			<div class="line botoes">
+                            <h:commandButton 
+                                value="Incluir" id="btnIncluir"
+                                disabled="#{ClienteBean.btnIncluir}"
+				styleClass="button" 
+                                actionListener="#{ClienteBean.incluir}"
+                                onclick="return validacao()"
+                            >
+                                <f:ajax
+                                    execute="@form"
+                                    render="@form"
+                                    onevent="showWaiting"
+                                >
+                                </f:ajax>
+                            </h:commandButton>
+                            <h:commandButton
+                                value="Alterar"
+                                id="btnAlterar"
+                                disabled="#{ClienteBean.btnAlterar}"
+				styleClass="button"
+                                actionListener="#{ClienteBean.editar}"
+                                onclick="return validacao()"
+                            >
+                                <f:ajax
+                                    execute="@form"
+                                    render="@form"
+                                    onevent="showWaiting"
+                                >        
+                                </f:ajax>
+                            </h:commandButton>		
+                            <h:commandButton
+                                value="Excluir"
+                                id="btnExcluir"
+                                disabled="#{ClienteBean.btnExcluir}"
+				styleClass="button"
+                                actionListener="#{ClienteBean.excluir}"
+				onclick="return excluir();"
+                            >
+                                <f:ajax 
+                                    execute="@form"
+                                    render="@form"
+                                    onevent="showWaiting"
+                                >
+                                </f:ajax>
+                            </h:commandButton>
+                            <h:commandButton 
+                                value="Limpar"
+                                styleClass="button"
+                            >
+				<f:ajax
+                                    event="click"
+                                    listener="#{ClienteBean.clear}"
+                                    render="@form"
+                                >
+                                </f:ajax>
+                            </h:commandButton>	
+			</div>		
+                    </div>
+                </div>
+	</h:form>
+    </h:body>
+    <script type="text/javascript" src="../resources/js/viewCadastro.js"></script>
+    <script type="text/javascript">
+    	if(!#{ProdutoBean.btnIncluir})
+    	{
+    		document.getElementById("cadastro:btnExcluir").setAttribute("disabled", "disabled");
+    		document.getElementById("cadastro:btnAlterar").setAttribute("disabled", "disabled");
+    	}
+    </script>
+</html>
