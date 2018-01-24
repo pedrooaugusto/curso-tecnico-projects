@@ -1,226 +1,293 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:jsf="http://xmlns.jcp.org/jsf">
-<h:head>
-	<title>Cadastro de Clientes</title>
-        <link rel="stylesheet" type="text/css" href="../resources/css/viewCadastro.css"/>
-        <style>
-            body
-            {
-                background-image: url("b2.jpg");
-                background-size: cover;
-                background-position-y: -70px;
-                background-repeat: no-repeat;
-            }
-            
-            #container
-            {
-                margin-top: 7%;
-                margin-left: 20%; 
-                width: 60%;
-                height: 68%;
-            }
-            .messages
-            {
-                margin-left: 20%;
-                width: 60.5%;
-            }
-            .field
-            {   
-                margin-top: 10px;
-                height: 65px;
-                width: 50%;
-            }
-        </style>
-</h:head>
-    <h:body>
-	<h:form id="cadastro" name="Form">
-		<div id="background"></div>
-		<div class="messages">
-                    <div id="messagePanel">
-                        <div id="message" style="background: #{ClienteBean.currentColors[0]};
-                            border: solid 1px #{ClienteBean.currentColors[1]};">
-                                #{ClienteBean.message}
-			</div>
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template = "/WEB-INF/include/bootstrap.xhtml">
+        <ui:define name = "head">
+            <title>Sabor do Rio - Cliente</title>
+            <h:outputStylesheet name="css/cliente.css"></h:outputStylesheet>
+        </ui:define>
+        <ui:define name = "body">
+        	<f:metadata> 
+            	<f:viewParam name="codCliente" value="#{clienteBean.cliente.codigoString}" />
+            	<f:viewAction action="#{clienteBean.load()}"/>
+        	</f:metadata>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h:outputLink class="navbar-brand" value = "../">Sabor Do Rio</h:outputLink>
                     </div>
-                    <a href="../../index.xhtml" style="text-decoration: none;"><div class="close">X</div></a>
-		</div>
-		<div id="container">
-                    <div id="serachBox">
-			<img src="../resources/img/search.png" width="25" height="25"/>
-			<h:inputText 
-                            id="codigo"
-                            name="codigo"
-                            value="#{ClienteBean.cliente.codigoString}"
-                            p:type="number" p:placeholder="Pesquisar Cliente"
-                            p:autocomplete="off"
-                        >
-                            <f:ajax event="blur" 
-                                render="@form btnIncluir"
-                                execute="cadastro:codigo"
-                                listener="#{ClienteBean.buscar}"
-                                onevent="showWaiting"
-                            >
-                            </f:ajax>
-			</h:inputText>
-                    </div>
-                    <div style="margin: 0; margin-top: 20px;">
-			<div class="line">
-                            <div class="field">
-                                <label>Nome</label>
-				<div class="input">
-                                    <img src="../resources/img/name.png" width="25" height="25" />
-                                    <h:inputText id="nome" name="nome" 
-                                        value="#{ClienteBean.cliente.nome}"
-                                        p:type="text" p:placeholder="Queen Elizabeth, the First"
-                                        p:required="true" p:autocomplete="off"
-                                        p:autofocus="true">
-                                    </h:inputText>
-				</div>
-                            </div>
-                            <div class="field min">
-				<label>Telefone</label>
-				<div class="input">
-                                    <img src="../resources/img/telephone.png" width="25" height="25" />
-                                    <h:inputText id="tel" name="tel" 
-					value="#{ClienteBean.cliente.tel}"
-					p:type="text" p:placeholder="Ex: 21 3764-3126" 
-					p:required="true" p:autocomplete="off">
-                                    </h:inputText>
-				</div>
-                            </div>
-                        </div>
-			<div class="line">
-                            <div class="field">
-				<label>Email</label>
-				<div class="input">
-                                    <img src="../resources/img/email.png" width="25" height="25" />
-                                    <h:inputText id="email" name="email" 
-					value="#{ClienteBean.cliente.email}"
-					p:type="email" p:placeholder="Ex: theDoctor@who.com"
-					p:required="true" p:autocomplete="off">
-                                    </h:inputText>
-				</div>
-                            </div>
-                            <div class="field min">
-				<label>Celular</label>
-				<div class="input">
-                                    <img src="../resources/img/mobilephone.png" width="25" height="25" />
-                                    <h:inputText id="cel" name="cel" 
-                                        value="#{ClienteBean.cliente.cel}"
-                                        p:type="text" p:placeholder="Ex: 21 97342-4273"
-                                        p:required="true" p:autocomplete="off">
-                                    </h:inputText>
-				</div>
-                            </div>
-                        </div>	
-			<div class="line">
-                            <div class="field">
-                                <label>Endereço</label>
-                                <div class="input">
-                                    <img src="../resources/img/location.png" width="25" height="25" />
-                                        <h:inputText id="endereco" name="endereco" 
-                                            value="#{ClienteBean.cliente.endereco}"
-                                            p:type="text" p:placeholder="Ex: Rua Quarenta e dois, 42"
-                                            p:required="true" p:autocomplete="off">
-					</h:inputText>
-				</div>
-                            </div>
-                            <div class="field min">
-				<label>Payment day</label>
-				<div class="input">
-                                    <img src="../resources/img/date.png" width="25" height="25" />
-                                    <h:inputText id="diaPagamento" name="diaPagamento" 
-					value="#{ClienteBean.cliente.diaPagamento}"
-					p:type="number" p:placeholder="Ex: 11"
-					p:required="true" p:autocomplete="off">
-                                    </h:inputText>
-				</div>
-                            </div>
-                        </div>		
-			<div class="line">
-                            <div class="field min" style="margin-left:55%;">
-                                <label>Status</label>
-                                <div class="input">
-                                    <img src="default.png" width="25" height="25" />
-                                    <h:inputText id="estadoConta" name="estadoConta" 
-                                        value="#{ClienteBean.cliente.estadoConta}"
-					p:type="text" p:placeholder="Ex: Ok"
-					p:required="true" p:autocomplete="off">
-                                    </h:inputText>
-				</div>
-                            </div>
-			</div>
-			<div class="line botoes">
-                            <h:commandButton 
-                                value="Incluir" id="btnIncluir"
-                                disabled="#{ClienteBean.btnIncluir}"
-				styleClass="button" 
-                                actionListener="#{ClienteBean.incluir}"
-                                onclick="return validacao()"
-                            >
-                                <f:ajax
-                                    execute="@form"
-                                    render="@form"
-                                    onevent="showWaiting"
-                                >
-                                </f:ajax>
-                            </h:commandButton>
-                            <h:commandButton
-                                value="Alterar"
-                                id="btnAlterar"
-                                disabled="#{ClienteBean.btnAlterar}"
-				styleClass="button"
-                                actionListener="#{ClienteBean.editar}"
-                                onclick="return validacao()"
-                            >
-                                <f:ajax
-                                    execute="@form"
-                                    render="@form"
-                                    onevent="showWaiting"
-                                >        
-                                </f:ajax>
-                            </h:commandButton>		
-                            <h:commandButton
-                                value="Excluir"
-                                id="btnExcluir"
-                                disabled="#{ClienteBean.btnExcluir}"
-				styleClass="button"
-                                actionListener="#{ClienteBean.excluir}"
-				onclick="return excluir();"
-                            >
-                                <f:ajax 
-                                    execute="@form"
-                                    render="@form"
-                                    onevent="showWaiting"
-                                >
-                                </f:ajax>
-                            </h:commandButton>
-                            <h:commandButton 
-                                value="Limpar"
-                                styleClass="button"
-                            >
-				<f:ajax
-                                    event="click"
-                                    listener="#{ClienteBean.clear}"
-                                    render="@form"
-                                >
-                                </f:ajax>
-                            </h:commandButton>	
-			</div>		
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                            	<h:outputLink value="../mesa">Dia a Dia</h:outputLink>
+                            </li>
+                            <li><a href="../venda/listar/">Vendas</a></li>
+                            <li class = "active"><a href="#">Clientes</a></li>
+                            <li><a href="../produto/">Produtos</a></li>
+                        </ul>
                     </div>
                 </div>
-	</h:form>
-    </h:body>
-    <script type="text/javascript" src="../resources/js/viewCadastro.js"></script>
-    <script type="text/javascript">
-    	if(!#{ProdutoBean.btnIncluir})
-    	{
-    		document.getElementById("cadastro:btnExcluir").setAttribute("disabled", "disabled");
-    		document.getElementById("cadastro:btnAlterar").setAttribute("disabled", "disabled");
-    	}
-    </script>
+            </nav>
+            <div class = "container">
+                <div class = "row">
+                    <div class = "col-md-12">
+                        <h2 class = "main-text">Cliente</h2>
+                    </div>
+                </div>
+                <div class = "row">
+                	<h:form id = "formCliente" name = "Form">
+	                    <div class = "col-md-6 col-md-offset-3 content-form">
+	                        <div class = "row">
+	                            <div class = "col-md-12 search-bar">
+	                                <div class="input-group">
+	                                	<span class="input-group-addon">Código do cliente</span>
+	                                    <h:inputText 
+	                                    	class = "form-control" 
+	                                    	value = "#{clienteBean.searchCod}" 
+	                                    	p:placeholder = "Ex: 42"
+	                                    	p:autocomplete="off"
+	                                    	id = "searchCod"/>
+	                                    <span class="input-group-btn">
+	                                       	<h:commandButton 
+	                                       		class="btn btn-default" 
+	                                       		type="button" 
+	                                       		p:title = "Procurar cliente com o código informado"
+	                                       		value = "Procurar"
+	                                       		onclick = "return search();">
+	                                       		<f:ajax
+	                                       			render = "@form searchCod"
+	                                       			execute = "searchCod"
+	                                       			event = "click"
+	                                       			onevent="ajaxCallHandler('search')"
+	                                       			listener = "#{clienteBean.buscar}"
+	                                       			>
+	                                       		</f:ajax>
+	                                       	</h:commandButton>
+	                                    </span>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class = "row">
+	                            <div class = "col-md-12 cliente-form">
+	                                    <div class = "row" style = "margin-top: 0px;">
+	                                        <div class = "col-md-3">
+	                                            <div class = "label-input">Código</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+	                                                </span>
+	                                                <input
+	                                                	class = "form-control" 
+	                                                	value = "#{clienteBean.cliente.codigoString}" 
+	                                                	type = "number"
+	                                                	readonly = "true"
+	                                                	name = "formCliente:codigo1"/>
+	                                                <h:inputHidden
+	                                                	class = "form-control" 
+	                                                	value = "#{clienteBean.cliente.codigoString}" 
+	                                                	type = "number"
+	                                                	name = "codigo2"/>
+	                                            </div>
+	                                        </div>
+	                                        <div class = "col-md-9">
+	                                            <div class = "label-input">Nome</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	                                                </span>
+	                                                <h:inputText 
+	                                                	class = "form-control" 
+	                                                	p:placeholder = "Pedro Augusto"
+	                                                	id = "nome" 
+	                                                	type = "text" 
+	                                                	name = "nome"
+	                                                	p:autocomplete = "off"
+	                                                	value = "#{clienteBean.cliente.nome}"/>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class = "row">
+	                                        <div class = "col-md-6">
+	                                            <div class = "label-input">Telefone</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+	                                                </span>
+	                                                <h:inputText 
+	                                                	class = "form-control" 
+	                                                	p:placeholder = "(21) 3546-6466" 
+	                                                	type = "text"
+	                                                	p:autocomplete = "off"
+	                                                	value = "#{clienteBean.cliente.tel}"
+	                                                	id = "telefone"/>
+	                                            </div>
+	                                        </div>
+	                                        <div class = "col-md-6">
+	                                            <div class = "label-input">Celular</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+	                                                </span>
+	                                                <h:inputText
+	                                                	class = "form-control" 
+	                                                	p:placeholder = "(21) 95556-6565" 
+	                                                	type = "text"
+	                                                	p:autocomplete = "off" 
+	                                                	id = "celular"
+	                                                	value = "#{clienteBean.cliente.cel}"/>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class = "row">
+	                                        <div class = "col-md-8">
+	                                            <div class = "label-input">Email</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+	                                                </span>
+	                                                <h:inputText
+	                                                	class = "form-control" 
+	                                                	p:placeholder = "pedro42@example.com" 
+	                                                	type = "email"
+	                                                	p:autocomplete = "off" 
+	                                                	id = "email"
+	                                                	value = "#{clienteBean.cliente.email}"/>
+	                                            </div>
+	                                        </div>
+	                                        <div class = "col-md-4">
+	                                            <div class = "label-input">Dia de pagamento</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+	                                                </span>
+	                                                <h:inputText 
+	                                                	class = "form-control" 
+	                                                	p:placeholder = "21" 
+	                                                	p:type = "number" 
+	                                                	p:min = "1" 
+	                                                	p:autocomplete = "off"
+	                                                	p:max = "31"
+	                                                	p:step = "1" 
+	                                                	id = "paymentDay"
+	                                                	value = "#{clienteBean.cliente.diaPagamento}"/>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class = "row">
+	                                        <div class = "col-md-8">
+	                                            <div class = "label-input">Endereço</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+	                                                </span>
+	                                                <h:inputText
+	                                                	class = "form-control" 
+	                                                	p:placeholder = "Nova Iguaçu, Rua Quinze, 165" 
+	                                                	type = "text"
+	                                                	p:autocomplete = "off" 
+	                                                	id = "endr"
+	                                                	value = "#{clienteBean.cliente.endereco}"/>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <hr/>
+	                                    <div class = "row">
+	                                        <div class = "col-md-2">
+	                                            <h:commandButton 
+	                                            	class = "btn btn-primary col-md-12"
+	                                            	type = "button"
+	                                            	p:title = "Incluir novo cliente"
+	                                            	onclick = "return checkForm(false);"
+	                                            	p:disabledp = "#{clienteBean.buttons[0]}"
+	                                            	value = "Inserir">
+	                                            		<f:ajax
+	                                            			execute = "@form"
+	                                            			render = "@form"
+	                                            			event = "click"
+	                                            			onevent = "ajaxCallHandler('insert')"
+	                                            			listener = "#{clienteBean.incluir}">
+	                                            		</f:ajax>		  	                                            		
+	                                            	</h:commandButton>
+	                                        </div>
+	                                        <div class = "col-md-2">
+	                                            <h:commandButton 
+	                                            	class = "btn btn-warning col-md-12"
+	                                            	type = "button"
+	                                            	p:title = "Alterar este cliente"
+	                                            	onclick = "return checkForm();"
+		                                            p:disabledp = "#{clienteBean.buttons[1]}"
+	                                            	value = "Alterar">
+	                                            		<f:ajax
+	                                            			execute = "@form"
+	                                            			event = "click"
+	                                            			onevent = "ajaxCallHandler('update')"
+	                                            			listener = "#{clienteBean.alterar}">
+	                                            		</f:ajax>		                                            	
+	                                            </h:commandButton>
+	                                        </div>
+	                                        <div class = "col-md-2">
+	                                            <h:commandButton 
+	                                            	class = "btn btn-danger col-md-12"
+	                                            	type = "button"
+	                                            	p:title = "Excluir este cliente"
+	                                            	onclick = "return checkForm();"
+	                                            	p:disabledp = "#{clienteBean.buttons[2]}"
+	                                            	value = "Excluir">
+	                                            		<f:ajax
+	                                            			execute = "@form"
+	                                            			render = "@form"
+	                                            			event = "click"
+	                                            			onevent = "ajaxCallHandler('delete')"
+	                                            			listener = "#{clienteBean.excluir}">
+	                                            		</f:ajax>	                                            	
+	                                            	</h:commandButton>
+	                                        </div>
+	                                        <div class = "col-md-2">
+	                                            <h:commandButton 
+	                                            	class = "btn btn-default col-md-12"
+	                                            	p:title = "Limpar todos os campos"
+	                                            	value = "Limpar">
+	                                            		<f:ajax
+	                                            			render = "@form"
+	                                            			event = "click"
+	                                            			onevent = "ajaxCallHandler('clear')"
+	                                            			listener = "#{clienteBean.limpar}">
+	                                            		</f:ajax>		                                            	
+	                                            </h:commandButton>
+	                                        </div>
+	                                        <div class = "col-md-3">
+	                                            <h:outputLink 
+	                                            	class = "btn btn-default col-md-12"
+	                                            	p:title = "Listar todos os clientes"
+	                                            	value = "listar">
+	                                            		Listar Todos
+	                                            </h:outputLink>
+	                                        </div>
+	                                    </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                 </h:form>
+                </div>
+            </div>
+        </ui:define>
+        
+        <ui:define name = "scripts">
+        	<h:outputScript name = "js/cliente.js"></h:outputScript>
+        	<h:outputScript name = "js/common.js"></h:outputScript>
+        </ui:define>
+
+    </ui:composition>
 </html>
+

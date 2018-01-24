@@ -1,0 +1,44 @@
+#loading .modal-body, #genericError .modal-dialog{
+	background-color: white;
+}
+
+#loading, #genericError{
+	top: 15%;
+}
+
+#loading .modal-sm, #genericError .modal-sm{
+	width: 450px;
+}
+
+#genericError .text-error{
+	font-size: 16px;
+}
+
+.progress {
+    margin: 15px;
+}
+
+.progress .progress-bar.active {
+    font-weight: 700;
+    animation: progress-bar-stripes .5s linear infinite;
+}
+
+.dotdotdot:after {
+    font-weight: 300;
+    content: '...';
+    display: inline-block;
+    width: 20px;
+    text-align: left;
+    animation: dotdotdot 1.5s linear infinite;
+}
+
+.tooltip-inner {
+    width: 300px;
+}
+
+@keyframes dotdotdot {
+  0%   { content: '...'; }
+  25% { content: ''; }
+  50% { content: '.'; }
+  75% { content: '..'; }
+}

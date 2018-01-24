@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template = "/WEB-INF/include/bootstrap.xhtml">
+        <ui:define name = "head">
+            <title>Sabor do Rio - Produto - Listar</title>
+            <h:outputStylesheet name="css/lista.css"></h:outputStylesheet>
+        </ui:define>
+        <ui:define name = "body">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h:outputLink class="navbar-brand" value = "../../">Sabor Do Rio</h:outputLink>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                   			<li class = "active"><a href="#">Produto - Listar</a></li>
+			        		<li><a href="../">Voltar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            
+            <div class = "container">
+                <div class = "row">
+                    <div class = "col-md-12">
+                        <h2 class = "main-text">Lista de Produtos</h2>
+                    </div>
+                </div>
+                
+                <div class = "row">
+                	<div class = "col-md-8 col-md-offset-2 content-form">
+						<div class = "row">
+							<div class = "col-md-12 list-sells">
+								<div class = "all-sells-wrapper">
+									<table class = "table table-striped all-sells-table">
+										<thead>
+											<th>#</th>
+											<th>Código</th>
+											<th>Descrição</th>
+											<th>Preço</th>
+											<th>Monitorado</th>
+											<th></th>
+										</thead>
+										<tbody>
+											<ui:repeat value = "#{produtoBean.listar()}" var = "produto" varStatus = "status">
+												<tr>
+													<td>#{status.index+1}</td>
+													<td>00#{produto.ID}</td>
+													<td>#{produto.nome}</td>
+													<td>#{produto.precoS()}</td>
+													<td>#{produto.monitorado ? 'Sim' : 'Não'}</td>
+													<td>
+														<h:outputLink
+															class = "btn btn-primary btn-xs"
+															value = "../?codProduto=#{produto.ID}">
+															Acessar
+														</h:outputLink>
+													</td>
+												</tr>
+											</ui:repeat>
+										</tbody>
+						        	</table>
+								</div>
+							</div>
+						</div>
+	                </div>
+                </div>
+            </div>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

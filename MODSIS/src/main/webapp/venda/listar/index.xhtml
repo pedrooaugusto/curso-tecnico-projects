@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template = "/WEB-INF/include/bootstrap.xhtml">
+        <ui:define name = "head">
+            <title>Sabor do Rio - Vendas</title>
+            <h:outputStylesheet name="css/vendas.css"></h:outputStylesheet>
+        </ui:define>
+        <ui:define name = "body">
+        	<nav class="navbar navbar-inverse">
+  				<div class="container-fluid">
+	    			<div class="navbar-header">
+	      				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        				<span class="sr-only">Toggle navigation</span>
+	        				<span class="icon-bar"></span>
+	        				<span class="icon-bar"></span>
+	        				<span class="icon-bar"></span>
+	      				</button>
+	      				<a class="navbar-brand" href="../../">Sabor Do Rio</a>
+	    			</div>
+		    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      			<ul class="nav navbar-nav">
+					        <li><a href="../../mesa/">Dia a Dia</a></li>
+					        <li class = "active"><a href="#">Vendas</a></li>
+					        <li><a href="../../cliente/">Clientes</a></li>
+					        <li><a href="../../produto/">Produtos</a></li>
+		      			</ul>
+		    		</div>
+  				</div>
+			</nav>
+			<div class = "container">
+				<div class = "row">
+					<div class = "col-md-12">
+						<h2 class = "main-text">Lista de Vendas</h2>
+					</div>
+				</div>
+				<div class = "row">
+					<div class = "col-md-6 col-md-offset-3 content-form">
+						<div class = "row">
+							<div class = "col-md-12 filter-card">
+								<div class = "row">
+									<div class = "col-md-3">
+										<div class = "form-group">
+											<div class = "text-tt">Preço Mínimo</div>
+											<input type = "number" min = "1" name = "minPrice" id = "minPrice" class = "form-control"/>
+										</div>
+									</div>
+									<div class = "col-md-3">
+										<div class = "form-group">
+											<div class = "text-tt">Preço Máximo</div>
+											<input type = "number" min = "1" name = "maxPrice" id = "maxPrice" class = "form-control"/>
+										</div>
+									</div>
+									<div class = "col-md-3">
+										<div class = "form-group" style = "margin-bottom: 0px;">
+											<div for = "client" class = "text-tt">Mês</div>
+											<select class="form-control" id = "month">
+											    <option value = "0">Todos</option>
+											    <option value = "01">Janeiro</option>
+										  	</select>
+										</div>
+									</div>
+									<div class = "col-md-3">
+										<div class = "form-group">
+											<div for = "client" class = "text-tt" style = "color: white;">.</div>
+											<button onclick = "filter()" class = "btn btn-default col-md-12">Filtrar</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class = "row">
+							<div class = "col-md-12 list-sells">
+								<div class = "all-sells-wrapper">
+									<table class = "table table-striped all-sells-table">
+										<thead>
+											<th>#</th>
+											<th>Número</th>
+											<th>Data</th>
+											<th>Total</th>
+											<th>Cliente</th>
+										</thead>
+										<tbody id = "lista-">
+											<tr>
+												<td>1</td>
+												<td>001</td>
+												<td>21/05/2018</td>
+												<td>R$ 119.67</td>
+												<td>Pedro Augusto</td>
+											</tr>
+										</tbody>
+						        	</table>
+								</div>
+								<div class = "text-tt" style = "margin-top: 10px;">Total Arrecadado <span id = "tot-">R$ 1,667.76</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </ui:define>
+        <ui:define name = "scripts">
+        	<script type="text/javascript">
+        		const fmt = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format;
+        		const vendas = [
+        			<ui:repeat value = "#{vendaBean.listar()}" var="venda">
+        				{
+        					numero: #{venda.ID}, 
+        					data: '#{venda.data}', 
+        					pago: #{venda.pago}, 
+        					total: #{venda.valor},
+        					cliente: '#{venda.cliente.nome}'
+        				},
+        			</ui:repeat>
+        		];
+        		$(document).ready(function(){
+        			updateTable(vendas);
+        		});
+        		
+        		function updateTable(filteredVendas){
+        			const lista_ = filteredVendas.map(function(a, b) {
+        				const c = "<tr>"+
+        						  "		<td>"+(b+1)+"</td>"+
+        						  "		<td>00"+a.numero+"</td>"+
+        						  "		<td>"+a.data+"</td>"+
+        						  "		<td>"+fmt(a.total)+"</td>"+
+        						  "		<td>"+(!a.cliente ? "Nenhum" : a.cliente)+"</td>"+
+        						  "</tr>";
+        				return c;
+        			});
+        			$("#lista-").html(lista_);
+        			const tot_ = filteredVendas.reduce(function(a, b){
+        				return (a + b.total);
+        			}, filteredVendas[0].total)
+        			$("#tot-").text(fmt(tot_));
+        		}
+        		
+        		function filter(){
+        			const minPrice = parseInt($("#minPrice").val() || -1, 10);
+        			const maxPrice = parseInt($("#maxPrice").val() || 10e10, 10);
+        			const month = $("#month").val();
+        			updateTable(vendas.filter(function(a) {
+        				const m = a.data.substring(3, 5);
+        				if(equalsAndGreather(a.total, minPrice))
+        					if(equalsAndSmaller(a.total, maxPrice))
+        						if(month === "0" || m === month)
+        							return true;
+        				return false;
+        			}));
+        		}
+        		
+        		function equalsAndGreather(a, b){
+        			if(a === b)
+        				return true;
+        			if(Math.max(a, b) === a)
+        				return true;
+        			return false;
+        		}
+        		
+        		function equalsAndSmaller(a, b){
+        			if(a === b)
+        				return true;
+        			if(Math.min(a, b) === a)
+        				return true;
+        			return false;
+        		}
+        	</script>
+        </ui:define>
+    </ui:composition>
+</html>
+

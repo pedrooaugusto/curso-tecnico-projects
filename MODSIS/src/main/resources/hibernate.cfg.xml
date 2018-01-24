@@ -14,7 +14,7 @@
 	    <property name="hibernate.connection.username">b6bfd248038583</property>
 	    <property name="hibernate.connection.password">8337a495</property>
 	    
-	   <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sabordoriomodsis?createDatabaseIfNotExist=true</property>
+	    <!-- <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sabordoriomodsis?createDatabaseIfNotExist=true</property>
 	    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 	    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 	    <property name="current_session_context_class">thread</property>
@@ -26,12 +26,17 @@
 	    <property name="hibernate.hbm2ddl.auto">create</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 	    
-        <mapping class="modelo.Cliente" />
-        <mapping class="modelo.NotaFiscal" />
+        <mapping class="com.august.saborrioweb.modelo.Cliente" />
+        <mapping class="com.august.saborrioweb.modelo.Produto" />        
+        <mapping class="com.august.saborrioweb.modelo.Pedido" />
+        <mapping class="com.august.saborrioweb.modelo.Pedido_Produto" />
+        <mapping class="com.august.saborrioweb.modelo.Venda" />
+        
+        <!--<mapping class="modelo.NotaFiscal" />
         <mapping class="modelo.Pagamento" />
         <mapping class="modelo.Pedido_Produto" />
         <mapping class="modelo.Pedido" />
-        <mapping class="modelo.Produto" />
+        <mapping class="modelo.Produto" />-->
                     	
 	</session-factory>
 </hibernate-configuration>

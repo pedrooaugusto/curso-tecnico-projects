@@ -1,0 +1,37 @@
+body{
+	background-color: rebeccapurple; 
+}
+.row{
+	margin-top: 10px;
+}
+.main-title{
+	color: white;
+	text-align: center;
+}
+.menu{
+	margin-top: 10px;
+}
+.menu .row{
+	margin-top: 20px;
+}
+.menu-item{
+	background-color: white;
+	padding: 8px;
+	border-radius: 5px;
+}
+
+.menu-item:hover{
+	background-color: #ddd;
+}
+.menu-item a{
+	text-decoration: none;
+}
+
+.menu-item-text{
+	text-align: center;
+	font-size: 24px;
+}
+
+.footnote p{
+	color: white;
+}

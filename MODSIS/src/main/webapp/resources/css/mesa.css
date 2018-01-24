@@ -1,0 +1,115 @@
+body{
+	background-color: #ececec; 
+}
+
+.navbar-inverse{
+	border-radius: 0px;
+	background-image: none; 
+}
+.mesa-button{
+	margin: 5px;
+	display: inline-block;
+	height: 175px;
+	width: 150px;
+	background-color: #03a9f4;
+	border: solid 1px #03a9f4;
+}
+
+.mesa-button:hover{
+	border: solid 1px white;;
+    background-color: #2196f3;
+}
+.main-text{
+	text-align: center;
+	font-family: 'Roboto';
+	font-weight: 300;
+}
+.mesas{
+	margin-top: 25px;
+}
+.mesa-number, .mesa-total-price, .mesa-status, .mesa-open{
+	font-size: 18px;
+	color: white;
+	text-align: center;
+	margin-top: 5px;
+}
+.mesa-number{
+	font-size: 30px;
+	font-weight: bold;
+	padding-top: 5px;
+	padding-bottom: 5px; 
+}
+.mesa-open{
+	margin-top: 10px;
+}
+.mesa-open .btn{
+	width: 90%;
+}
+.add-item .row{
+	margin-top: 15px;
+}
+.add-item-explain-text, .ordered-items-explain-text{
+	font-size: 20px;
+	font-family: 'Roboto';
+}
+
+.label-input{
+	margin-bottom: 3px;
+	font-size: 15px;
+	font-family: 'Roboto';
+}
+
+#search-input{
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px; 
+}
+
+#item-list{
+	margin-top: 10px;
+	min-height: 150px;
+	max-height: 150px;
+	height: auto;
+	overflow-y: auto;
+	box-shadow: none !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+.list-group-item{
+	cursor: pointer;
+}
+
+.list-group-item:first-child{
+	border-top: none;
+	border-radius: 0px;
+}
+
+.list-group-item:hover, .list-group-item.activex{
+	background-color: #ddd;
+}
+
+.ordered-items .row{
+	margin-top: 15px;
+}
+
+.ordered-items-table-wrapper{
+	max-height: 300px;
+	overflow-y: auto;	
+}
+
+.ordered-items-table{
+	margin-bottom: 0px;
+}
+
+.table-total-price{
+	font-size: 16px;
+	font-family: 'Roboto';
+	text-align: right;
+	color: green;
+	font-weight: bold;
+}
+@media only screen and (max-width: 600px){
+	.mesa-button{
+		height: 175px;
+		width: 45%; 
+	}	
+}

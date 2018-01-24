@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template = "/WEB-INF/include/bootstrap.xhtml">
+        <ui:define name = "head">
+            <title>Sabor do Rio - Finalizar Venda</title>
+            <h:outputStylesheet name="css/venda.css"></h:outputStylesheet>
+        </ui:define>
+        <ui:define name = "body">
+        	<f:metadata> 
+            	<f:viewParam name = "codPedido" value = "#{vendaBean.pedidoID}" />
+            	<f:viewAction action = "#{vendaBean.load()}"/>
+        	</f:metadata>
+			    <div class = "container">
+					<div class = "row">
+						<div class = "col-md-12">
+							<h2 class = "main-text">Finalizar Venda</h2>
+						</div>
+					</div>
+					<div class = "row">
+						<div class = "col-md-6 col-md-offset-3 venda-form">
+							<h:form id = "formVenda">
+								<h:inputHidden
+									id = "current-date"
+									value = "#{vendaBean.currentDate}"/>
+								<div class = "row" style = "margin-bottom: 0px;">
+									<div class = "col-md-12">
+										<div class = "label-text">
+											Nº 00#{vendaBean.venda.pedido.ID} -- 
+											<span style="color:#4caf50; font-weight: 400;">
+												#{vendaBean.venda.pedido.precoTotalS()}
+											</span>
+											-- <small>
+													<small><i><span id = "time-count">00/00/0000 00:00:00</span> -- Mesa 0#{vendaBean.venda.pedido.mesa}</i>
+													</small>
+												</small>
+										</div>
+										<hr/>
+									</div>
+								</div>
+								<div class = "row">
+									<div class = "col-md-12">
+										<div class = "text-tt">Items:</div>
+										<div class = "purchased-items-table-wrapper">
+											<table class = "table table-striped purchased-items-table">
+												<thead>
+													<th>#</th>
+													<th>Produto</th>
+													<th>Preço</th>
+													<th>Quant.</th>
+													<th>Preço Total</th>
+												</thead>
+												<tbody>
+													<ui:repeat value = "#{vendaBean.venda.pedido.items}" var = "item">
+														<tr>
+															<td>#{item.numeracao}</td>
+															<td>#{item.produto.nome}</td>
+															<td>#{item.produto.precoS()}</td>
+															<td>#{item.quant} uni</td>
+															<td>#{item.total()}</td>
+														</tr>
+													</ui:repeat>
+												</tbody>
+								        	</table>
+								        </div>
+								        <!-- <div class = "text-tt" style = "text-align: right;margin-top:15px;">
+								        	<span style = "padding:5px; border: solid 1px #ddd;border-radius:5px;">
+								        		Total #{vendaBean.venda.pedido.precoTotalS()}
+								        	</span>
+								        </div>-->
+									</div>
+								</div>
+								<div class = "row">
+									<div class = "col-md-12">
+										<div class = "text-tt">
+											Forma de Pagamento:
+											<div class="radio">
+					  							<label class = "">
+					  								<input type="radio" name = "payment-mode" value = "card"/>Cartão
+					  							</label>
+											</div>
+											<div class="radio">
+					  							<label class = "">
+					  								<input type="radio" name = "payment-mode" value = "cash"/>Dinheiro
+					  							</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class = "row">
+									<div class = "col-md-6">
+										<div class = "form-group" style = "margin-bottom: 0px;">
+											<label for = "client" class = "text-tt">Selecionar cliente</label>
+											<h:selectOneMenu 
+												id = "client"
+												value = "#{vendaBean.codCliente}" 
+												styleClass = "form-control">
+	                                				<f:selectItem
+	                                					itemValue = "0"
+	                                					itemLabel = "Nenhum"/>
+	                                				<f:selectItems 
+	                                					value = "#{clienteBean.listar()}" 
+	                                					var = "cli" 
+	                                        			itemValue = "#{cli.codigo}" 
+	                                        			itemLabel = "#{cli.nome}"/>
+	                            			</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
+								<hr/>
+								<div class = "row">
+								<div class = "col-md-12">
+	                            	<h:commandButton 
+	                                    class = "btn btn-primary col-md-3"
+	                                 	type = "button"
+	                                    value = "Finalizar">
+	                                    	<f:ajax
+	                                        	execute = "@form"
+	                                            event = "click"
+	                                            onevent = "ajaxCallHandler('finish')"
+	                                            listener = "#{vendaBean.incluir}">
+	                                        </f:ajax>	                                            	
+	                                </h:commandButton>
+									<a href = "../../mesa" class = "btn btn-default col-md-3 col-md-offset-1">
+										Cancelar
+									</a>
+								</div>
+							</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+        </ui:define>
+        
+        <ui:define name = "scripts">
+        	<h:outputScript name = "js/finalizarVenda.js"></h:outputScript>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

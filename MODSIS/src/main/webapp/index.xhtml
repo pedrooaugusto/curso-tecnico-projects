@@ -1,187 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html">
-<head>
-    <!--
-        Como carregar select's -> option
-        Complex objects as available items
-        Whenever T concerns a complex object (a javabean),
-        such as User which has a String property of name,
-        then you could use the var attribute to get hold
-        of the iteration variable which you in turn can use in
-        itemValue and/or itemLabel attribtues (if you omit the itemLabel,
-        then the label becomes the same as the value).
-        
-        Example #1:
-        <h:selectOneMenu value="_#_{bean.userName}">
-            <f:selectItems value="_#_{bean.users}" var="user" itemValue="_#_{user.name}" />
-        </h:selectOneMenu>
-        Or when it has a Long property id which you 
-        would rather like to set as item value:
-        Example #2:
-        <h:selectOneMenu value="_#_{bean.userId}">
-            <f:selectItems value="_#_{bean.users}" var="user" itemValue="_#_{user.id}" itemLabel="_#_{user.name}" />
-        </h:selectOneMenu>
-    -->
-	<meta charset="UTF-8"/>
-	<title>Main Menu</title>
-	<style type="text/css">
-		*
-		{
-			margin: 0;
-		}
-		body
-		{
-			background: rgb(114, 44, 125);
-		}
-		.container
-		{
-			display: flex;
-			flex-flow: column;
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			align-items: center;
-		}
-		.conteudo
-		{
-			display: flex;
-			flex-flow: column;
-			margin-top: 40px;
-			width: 65%;
-			height: 70%;
-			padding: 3px;
-			border-radius: 3px;
-		}
-		.title
-		{
-			display: flex;
-			flex-flow: column;
-			align-items: center;
-		}
-		.title .text
-		{
-			color: white;
-			font-size: 35px;
-			font-family: 'Segoe Print';
-			font-weight: bold;
-		}
-		.data
-		{
-			border: solid 1px #bc75c5;
-			display: flex;
-			flex-flow: row;
-			background: rgba(120, 16, 132, 0.76);
-			width: 100%;
-			height: 90%;
-			align-items: center;
-		}
-		.coluna
-		{
-			display: flex;
-			flex-flow: column;
-			width: 45%;
-			background: #3f51b5;
-			box-shadow: 1px 1px 2px royalblue;
-			height: 20%;
-			padding: 5px;
-			cursor: pointer;
-			text-decoration:none;
-			-webkit-transition-duration: 0.2s;
-		}
-		.coluna:hover
-		{
-			width: 70%;
-		}
-		.coluna .name
-		{
-			font-size: 25px;
-			width: 40%;
-			margin-top: 15px; 
-			text-align: center;
-			color: white;
-			font-weight: bolder;
-			font-family: 'Segoe UI Light';
-			letter-spacing: 0.08em;
-			-webkit-transition-duration: 0.2s;
-		}
-		.coluna .description
-		{
-			font-size: 20px;
-			width: 80%;
-			height: 50px; 
-			color: black;
-			padding-left: 130px;
-			font-family: 'Segoe UI';
-			letter-spacing: 0.08em;
-			display: none;
-		}
-		.colunaWrapper
-		{
-			height: 90%;
-			width: 100%;
-			display: flex;
-			flex-flow: column;
-			alignt-items: center;
-			justify-content: space-around;
-			padding-left: 10px;
-			padding-right: 10px;
-			padding-top: 5px;
-			padding-bottom: 5px;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		<div class="conteudo">
-			<div class="title">
-				<span class="text"><u>SABOR DO RIO</u></span>
-			</div>
-			<div class="data">
-				<div class="colunaWrapper">
-					<a href="Mesa/index.xhtml" class="coluna" onmouseover="crescer(this);"
-						onmouseout="diminuir(this)">
-							<div class="name">
-								Dia a dia
-							</div>
-							<div class="description">
-								abrir caixa do estabelecimento
-							</div>
-					</a>
-					<a href="Produto/index.xhtml" class="coluna" onmouseover="crescer(this);"
-						onmouseout="diminuir(this)">
-							<div class="name">
-								Produtos
-							</div>
-							<div class="description">
-								cadastro de produtos
-							</div>
-					</a>
-					<a href="Cliente/index.xhtml" class="coluna" onmouseover="crescer(this);"
-						onmouseout="diminuir(this)">
-						<div class="name">
-							Clientes
-						</div>
-						<div class="description">
-							cadastro de clientes
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>		
-	</div>	
-</body>
-<script type="text/javascript">
-	function crescer (coluna) {
-		coluna.children[0].style.marginTop = "0px";
-		coluna.children[1].style.display = "block";
-	}
-	function diminuir (coluna) {
-		coluna.children[0].style.marginTop = "15px";
-		coluna.children[1].style.display = "none";
-	}
-	
-</script>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template = "/WEB-INF/include/bootstrap.xhtml">
+        <ui:define name = "head">
+            <title>Sabor do Rio - Main Menu</title>
+            <h:outputStylesheet name="css/mainMenu.css"></h:outputStylesheet>
+        </ui:define>
+        <ui:define name = "body">
+            <div class = "container">
+                <div class = "row">
+                    <div class = "col-md-12">
+                        <h1 class = "main-title">#{mainBean.title}</h1>
+                    </div>
+                </div>
+                <div class = "row menu">
+                    <div class = "col-md-6 col-md-offset-3">
+                        <div class = "row">
+                            <div class = "col-md-12">
+                                <div class = "menu-item">
+                                    <h:outputLink value = "mesa/">
+                                        <div class = "menu-item-text">Iniciar Dia a Dia</div>
+                                    </h:outputLink>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col-md-12">
+                                <div class = "menu-item">
+                                    <h:outputLink value="venda/listar/">
+                                        <div class = "menu-item-text">Vendas</div>
+                                    </h:outputLink>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col-md-12">
+                                <div class = "menu-item">
+                                    <h:outputLink value = "cliente/">
+                                        <div class = "menu-item-text">Clientes</div>
+                                    </h:outputLink>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col-md-12">
+                                <div class = "menu-item">
+                                    <h:outputLink value = "produto/">
+                                        <div class = "menu-item-text">Produtos</div>
+                                    </h:outputLink>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class = "row">
+                            <div class = "col-md-12">
+                                <div class = "menu-item">
+                                    <h:outputLink value = "docs/">
+                                        <div class = "menu-item-text">Docs</div>
+                                    </h:outputLink>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class= "col-md-12">
+                                <hr/> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "row footnote">
+                    <div class = "col-md-6 col-md-offset-3">
+                        <p>FAETEC, 2016, Modelagem de Sistemas</p>
+                        <p>Turma: 3111</p>
+                        <p>Alunos: Pedro Augusto e Thales Zarzar</p>
+                        <p>Construído com: [HTML, CSS, JS, JQuey, Bootstrap], [Servelet, JSF, MySQL, Hibernate]</p>
+                        <p><a style = "padding: 5px;background-color:white;" href = "https://github.com/pedrooaugusto/curso-tecnico-projects/tree/master/MODSIS">Github</a></p>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
 </html>
+

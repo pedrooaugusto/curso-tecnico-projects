@@ -1,192 +1,248 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:jsf="http://xmlns.jcp.org/jsf">
-<h:head>
-	<title>Cadastro de Produtos</title>
-        <link rel="stylesheet" type="text/css" href="../resources/css/viewCadastro.css"/>
-	<style>
-     	body
-        {
-          	background: #bababa;
-			background-image: url("../resources/img/p4.jpg");
-            background-size: 1330px 660px;
-			background-repeat: no-repeat;
-			background-position-x: 200px;
-        }
-        #container
-        {
-            margin-top: 7%;
-			margin-left: 25%; 
-			width: 50%;
-			height: 58%;
-        }
-        .messages
-        {
-            margin-left: 25%;
-            width: 50.5%;
-        }
-        .field
-        {
-            margin-top: 10px;
-			margin-left: 20%;
-			height: 65px;
-			width: 60%;
-        }
-	</style>
-</h:head>
-<h:body>
-    <h:form id="cadastro" name="Form">
-        <div id="background"></div>
-            <div class="messages">
-                <div id="messagePanel">
-                    <div id="message" style="background: #{ProdutoBean.currentColors[0]};
-                        border: solid 1px #{ProdutoBean.currentColors[1]};">
-                            #{ProdutoBean.message}
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template = "/WEB-INF/include/bootstrap.xhtml">
+        <ui:define name = "head">
+            <title>Sabor do Rio - Produto</title>
+            <h:outputStylesheet name="css/cliente.css"></h:outputStylesheet>
+        </ui:define>
+        <ui:define name = "body">
+        	<f:metadata> 
+            	<f:viewParam name="codProduto" value="#{produtoBean.produto.codigoString}" />
+            	<f:viewAction action="#{produtoBean.load()}"/>
+        	</f:metadata>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h:outputLink class="navbar-brand" value = "../">Sabor Do Rio</h:outputLink>
                     </div>
-		</div>
-                <a href="../../index.xhtml"><div class="close">X</div></a>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                            	<h:outputLink value="../mesa">Dia a Dia</h:outputLink>
+                            </li>
+                            <li><a href="../venda/listar">Vendas</a></li>
+                            <li><a href="../cliente">Clientes</a></li>
+                            <li class = "active"><a href="#">Produtos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class = "container">
+                <div class = "row">
+                    <div class = "col-md-12">
+                        <h2 class = "main-text">Produto</h2>
+                    </div>
+                </div>
+                <div class = "row">
+                	<h:form id = "formProduto" name = "Form">
+	                    <div class = "col-md-6 col-md-offset-3 content-form">
+	                        <div class = "row">
+	                            <div class = "col-md-12 search-bar">
+	                                <div class="input-group">
+	                                	<span class="input-group-addon">Código do produto</span>
+	                                    <h:inputText 
+	                                    	class = "form-control" 
+	                                    	value = "#{produtoBean.searchCod}" 
+	                                    	p:placeholder = "Ex: 42"
+	                                    	p:autocomplete = "off"
+	                                    	id = "searchCod"/>
+	                                    <span class="input-group-btn">
+	                                       	<h:commandButton 
+	                                       		class = "btn btn-default tt_medium" 
+	                                       		type = "button" 
+	                                       		value = "Procurar"
+	                                       		p:data-toggle = "tooltip" 
+	                                       		p:title = "Procurar produto com o código informado"
+	                                       		onclick = "return search();">
+	                                       		<f:ajax
+	                                       			render = "@form searchCod"
+	                                       			execute = "searchCod"
+	                                       			event = "click"
+	                                       			onevent="ajaxCallHandler('search')"
+	                                       			listener = "#{produtoBean.buscar}">
+	                                       		</f:ajax>
+	                                       	</h:commandButton>
+	                                    </span>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class = "row">
+	                            <div class = "col-md-12 cliente-form">
+	                                    <div class = "row" style = "margin-top: 0px;">
+	                                        <div class = "col-md-3">
+	                                            <div class = "label-input">Código</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+	                                                </span>
+	                                                <input
+	                                                	class = "form-control" 
+	                                                	value = "#{produtoBean.produto.codigoString}" 
+	                                                	type = "number"
+	                                                	readonly = "true"
+	                                                	name = "formProduto:codigo1"/>
+	                                                <h:inputHidden
+	                                                	class = "form-control" 
+	                                                	value = "#{produtoBean.produto.codigoString}" 
+	                                                	type = "number"
+	                                                	name = "codigo2"/>
+	                                            </div>
+	                                        </div>
+	                                        <div class = "col-md-9">
+	                                            <div class = "label-input">Descrição</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+	                                                </span>
+	                                                <h:inputText 
+	                                                	class = "form-control" 
+	                                                	p:placeholder = "Dolly Guarana 2L"
+	                                                	id = "nome" 
+	                                                	type = "text" 
+	                                                	name = "nome"
+	                                                	p:autocomplete = "off"
+	                                                	value = "#{produtoBean.produto.nome}"/>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class = "row">
+	                                        <div class = "col-md-6">
+	                                            <div class = "label-input">Preço</div>
+	                                            <div class = "input-group">
+	                                                <span class = "input-group-addon">
+	                                                    <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+	                                                </span>
+	                                                <h:inputText 
+	                                                	class = "form-control" 
+	                                                	p:placeholder = "6.75" 
+	                                                	p:type = "number"
+	                                                	p:min = "1"
+	                                                	p:step = "0.01"
+	                                                	p:autocomplete = "off"
+	                                                	value = "#{produtoBean.produto.preco}"
+	                                                	id = "preco"/>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                	<div class = "row">
+											<div class = "col-md-8">
+												<div class = "label-input">Monitorado</div>
+												<div class = "input-group">
+													<div class="checkbox">
+														<label>
+															<h:selectBooleanCheckbox
+																value = "#{produtoBean.produto.monitorado}"
+																name = "monitorado" 
+																id = "monitorado"/>Sim
+														</label>
+													</div>
+			        							</div>
+											</div>
+										</div>
+	                                    <hr/>
+	                                    <div class = "row">
+	                                        <div class = "col-md-2">
+	                                            <h:commandButton 
+	                                            	class = "btn btn-primary col-md-12"
+	                                            	type = "button"
+	                                            	onclick = "return checkForm(false);"
+		                                       		p:data-toggle = "tooltip" 
+			                                       	p:title = "Incluir novo produto"
+	                                            	p:disabledp = "#{produtoBean.buttons[0]}"
+	                                            	value = "Inserir">
+	                                            		<f:ajax
+	                                            			execute = "@form"
+	                                            			render = "@form"
+	                                            			event = "click"
+	                                            			onevent = "ajaxCallHandler('insert')"
+	                                            			listener = "#{produtoBean.incluir}">
+	                                            		</f:ajax>		  	                                            		
+	                                            	</h:commandButton>
+	                                        </div>
+	                                        <div class = "col-md-2">
+	                                            <h:commandButton 
+	                                            	class = "btn btn-warning col-md-12"
+	                                            	type = "button"
+	                                            	p:data-toggle = "tooltip" 
+	                                       			p:title = "Alterar este produto"
+	                                            	onclick = "return checkForm();"
+		                                            p:disabledp = "#{produtoBean.buttons[1]}"
+	                                            	value = "Alterar">
+	                                            		<f:ajax
+	                                            			execute = "@form"
+	                                            			event = "click"
+	                                            			onevent = "ajaxCallHandler('update')"
+	                                            			listener = "#{produtoBean.alterar}">
+	                                            		</f:ajax>		                                            	
+	                                            </h:commandButton>
+	                                        </div>
+	                                        <div class = "col-md-2">
+	                                            <h:commandButton 
+	                                            	class = "btn btn-danger col-md-12"
+	                                            	type = "button"
+	                                            	p:data-toggle = "tooltip" 
+	                                       			p:title = "Excluir este produto"
+	                                            	onclick = "return checkForm();"
+	                                            	p:disabledp = "#{produtoBean.buttons[2]}"
+	                                            	value = "Excluir">
+	                                            		<f:ajax
+	                                            			execute = "@form"
+	                                            			render = "@form"
+	                                            			event = "click"
+	                                            			onevent = "ajaxCallHandler('delete')"
+	                                            			listener = "#{produtoBean.excluir}">
+	                                            		</f:ajax>	                                            	
+	                                            	</h:commandButton>
+	                                        </div>
+	                                        <div class = "col-md-2">
+	                                            <h:commandButton 
+	                                            	class = "btn btn-default col-md-12"	
+	                                            	p:data-toggle = "tooltip" 
+	                                       			p:title = "Limpar todos os campos"
+	                                            	value = "Limpar">
+	                                            		<f:ajax
+	                                            			render = "@form"
+	                                            			event = "click"
+	                                            			onevent = "ajaxCallHandler('clear')"
+	                                            			listener = "#{produtoBean.limpar}">
+	                                            		</f:ajax>		                                            	
+	                                            </h:commandButton>
+	                                        </div>
+	                                        <div class = "col-md-3">
+	                                            <h:outputLink 
+	                                            	class = "btn btn-default col-md-12"
+	                                       			p:data-toggle = "tooltip" 
+	                                       			p:title = "Listar todos os produtos"
+	                                            	value = "listar">
+	                                            		Listar Todos
+	                                            </h:outputLink>
+	                                        </div>
+	                                    </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                 </h:form>
+                </div>
             </div>
-            <div id="container">
-		<div id="serachBox">
-                    <img src="../resources/img/search.png" width="25" height="25"/>
-                    <h:inputText 
-                        id="ID"
-                        name="ID"
-			value="#{ProdutoBean.produto.IDString}"
-			p:type="number" p:placeholder="Pesquisar Produto"
-			p:autocomplete="off"
-                    >
-                        <f:ajax
-                            event="blur" 
-                            render="@form cadastro:btnIncluir"
-                            execute="@this"
-                            onevent="showWaiting"
-                            listener="#{ProdutoBean.buscar}"
-                        >
-                        </f:ajax>
-                    </h:inputText>
-		</div>
-		<div style="margin: 0; margin-top: 15px;">
-                    <div class="line">
-			<div class="field">
-                            <label>Nome</label>
-                            <div class="input">
-                                <img src="../resources/img/name.png" width="25" height="25" />
-                                <h:inputText 
-                                    id="nome"
-                                    name="nome"
-                                    value="#{ProdutoBean.produto.nome}"
-                                    p:type="text" p:placeholder="TRAKINAS MORANGO"
-                                    p:required="true" p:autocomplete="off"
-                                    requiredMessage="Preencha o campo nome!"
-                                    p:autofocus="true">
-                                </h:inputText>
-                            </div>
-			</div>
-                    </div>
-                    <div class="line">
-                        <div class="field">
-                            <label>Preço</label>
-                            <div class="input">
-                                <img src="../resources/img/money.png" width="25" height="25" />
-				<h:inputText 
-                                    id="preco"
-                                    name="preco" 
-                                    value="#{ProdutoBean.produto.preco}"
-                                    p:type="number" p:placeholder="Ex: 42.73"
-                                    p:required="true" p:autocomplete="off"
-                                    p:step="any">
-				</h:inputText>
-                            </div>
-                        </div>
-                    </div>	
-                    <div class="line">
-                        <div class="field">
-                            <label>Monitorado</label>
-                            <div class="input">
-                                <img src="../resources/img/info.png" width="25" height="25" />
-                                <h:selectBooleanCheckbox 
-                                    id="monitorado"
-                                    name="monitorado"
-                                    value="#{ProdutoBean.produto.monitorado}">
-                                </h:selectBooleanCheckbox>
-                                <label></label>
-                            </div>
-			</div>
-                    </div>
-                    <div class="line botoes">
-						<h:commandButton
-                            value="Incluir"
-                            id="btnIncluir"
-                            disabled="#{ProdutoBean.btnIncluir}"
-                            styleClass="button"
-                            actionListener="#{ProdutoBean.incluir}"
-                            onclick="return validacao()">
-                            <f:ajax
-                                execute="@form"
-                                render="@form"
-                                onevent="showWaiting">
-                            </f:ajax>
-						</h:commandButton>
-						
-						<h:commandButton
-                            value="Alterar"
-                            id="btnAlterar"
-                            disabled="#{ProdutoBean.btnAlterar}"
-                            styleClass="button"
-                            actionListener="#{ProdutoBean.editar}"
-                            onclick="return validacao()">
-                            <f:ajax
-                                execute="@form"
-                                render="@form"
-                                onevent="showWaiting">
-                            </f:ajax>
-						</h:commandButton>                        
-                        
-                        
-						<h:commandButton 
-                            value="Excluir"
-                            id="btnExcluir"
-                            disabled="#{ProdutoBean.btnExcluir}"
-                            styleClass="button" 
-                            actionListener="#{ProdutoBean.excluir}"
-                            onclick="return excluir()"
-                        >
-                            <f:ajax 
-                                execute="@form"
-                                render="@form"
-                                onevent="showWaiting"
-                            >
-                            </f:ajax>
-			</h:commandButton>
-                        
-                        <h:commandButton
-                            value="Limpar"
-                            styleClass="button"
-                        >
-                            <f:ajax
-                                event="click"
-                                listener="#{ProdutoBean.clear}"
-                                render="@form"
-                            >
-                            </f:ajax>
-			</h:commandButton>
-                        
-                    </div>		
-		</div>
-            </div>
-	</h:form>
-</h:body>
-    <script type="text/javascript" src="../resources/js/viewCadastro.js"></script>
-    <script type="text/javascript">
-    	if(!#{ProdutoBean.btnIncluir})
-    	{
-    		document.getElementById("cadastro:btnExcluir").setAttribute("disabled", "disabled");
-    		document.getElementById("cadastro:btnAlterar").setAttribute("disabled", "disabled");
-    	}
-    </script>
+        </ui:define>
+        
+        <ui:define name = "scripts">
+        	<h:outputScript name = "js/produto.js"></h:outputScript>
+        	<h:outputScript name = "js/common.js"></h:outputScript>
+        </ui:define>
+
+    </ui:composition>
 </html>
+
